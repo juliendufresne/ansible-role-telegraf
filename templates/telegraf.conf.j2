@@ -437,19 +437,17 @@
   ]
 
 {% endif %}
-# # Read stats from one or more Elasticsearch servers or clusters
-# [[inputs.elasticsearch]]
-#   ## specify a list of one or more Elasticsearch servers
-#   servers = ["http://localhost:9200"]
-#
-#   ## set local to false when you want to read the indices stats from all nodes
-#   ## within the cluster
-#   local = true
-#
-#   ## set cluster_health to true when you want to also obtain cluster level stats
-#   cluster_health = false
+{% if telegraf__conf__inputs__elasticsearch__enabled %}
+[[inputs.elasticsearch]]
+  servers     = [
+{% for server in telegraf__conf__inputs__elasticsearch__servers %}
+    "{{ server }}",
+{% endfor %}
+  ]
+  local          = {{ telegraf__conf__inputs__elasticsearch__local|lower }}
+  cluster_health = {{ telegraf__conf__inputs__elasticsearch__cluster_health|lower }}
 
-
+{% endif %}
 # # Read metrics from one or more commands that can output to stdout
 # [[inputs.exec]]
 #   ## Commands array

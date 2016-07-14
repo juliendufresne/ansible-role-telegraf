@@ -334,3 +334,11 @@ telegraf__conf__inputs__dovecot__servers:
 telegraf__conf__inputs__dovecot__type: "global"
 telegraf__conf__inputs__dovecot__filters:
   - ""
+
+# [[inputs.elasticsearch]]
+
+telegraf__conf__inputs__elasticsearch__enabled: false
+telegraf__conf__inputs__elasticsearch__servers:
+  - "http://localhost:9200"
+telegraf__conf__inputs__elasticsearch__local: true
+telegraf__conf__inputs__elasticsearch__cluster_health: false
