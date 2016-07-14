@@ -215,3 +215,7 @@ telegraf__conf__inputs__diskio__skip_serial_number: false
 # [[inputs.kernel]]
 
 telegraf__conf__inputs__kernel__enabled: true
+
+# [[inputs.mem]]
+
+telegraf__conf__inputs__mem__enabled: true

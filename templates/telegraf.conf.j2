@@ -271,11 +271,10 @@
 [[inputs.kernel]]
 
 {% endif %}
-# Read metrics about memory usage
+{% if telegraf__conf__inputs__mem__enabled %}
 [[inputs.mem]]
-  # no configuration
 
-
+{% endif %}
 # Get the number of processes and group them by status
 [[inputs.processes]]
   # no configuration
