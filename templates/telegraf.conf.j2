@@ -174,33 +174,29 @@
   template   = "{{ telegraf__conf__outputs__librato__template }}"
 
 {% endif %}
-# # Configuration for MQTT server to send metrics to
-# [[outputs.mqtt]]
-#   servers = ["localhost:1883"] # required.
-#
-#   ## MQTT outputs send metrics to this topic format
-#   ##    "<topic_prefix>/<hostname>/<pluginname>/"
-#   ##   ex: prefix/web01.example.com/mem
-#   topic_prefix = "telegraf"
-#
-#   ## username and password to connect MQTT server.
-#   # username = "telegraf"
-#   # password = "metricsmetricsmetricsmetrics"
-#
-#   ## Optional SSL Config
-#   # ssl_ca = "/etc/telegraf/ca.pem"
-#   # ssl_cert = "/etc/telegraf/cert.pem"
-#   # ssl_key = "/etc/telegraf/key.pem"
-#   ## Use SSL but skip chain & host verification
-#   # insecure_skip_verify = false
-#
-#   ## Data format to output.
-#   ## Each data format has it's own unique set of configuration options, read
-#   ## more about them here:
-#   ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md
-#   data_format = "influx"
+{% if telegraf__conf__outputs__mqtt__enabled %}
+[[outputs.mqtt]]
+  servers              = [
+{% for server in telegraf__conf__outputs__mqtt__servers %}
+    "{{ server }}",
+{% endfor %}
+  ]
+  topic_prefix         = "{{ telegraf__conf__outputs__mqtt__topic_prefix }}"
+{% if telegraf__conf__outputs__mqtt__username %}
+  username             = "{{ telegraf__conf__outputs__mqtt__username }}"
+{% endif %}
+{% if telegraf__conf__outputs__mqtt__password %}
+  password             = "{{ telegraf__conf__outputs__mqtt__password }}"
+{% endif %}
+{% if telegraf__conf__outputs__mqtt__ssl__enabled %}
+  ssl_ca               = "{{ telegraf__conf__outputs__mqtt__ssl__ssl_ca }}"
+  ssl_cert             = "{{ telegraf__conf__outputs__mqtt__ssl__ssl_cert }}"
+  ssl_key              = "{{ telegraf__conf__outputs__mqtt__ssl__ssl_key }}"
+  insecure_skip_verify = {{ telegraf__conf__outputs__mqtt__ssl__insecure_skip_verify|lower }}
+{% endif %}
+  data_format          = ""
 
-
+{% endif %}
 # # Send telegraf measurements to NSQD
 # [[outputs.nsq]]
 #   ## Location of nsqd instance listening on TCP

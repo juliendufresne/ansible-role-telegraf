@@ -147,3 +147,18 @@ telegraf__conf__outputs__librato__debug: false
 telegraf__conf__outputs__librato__source_tag: "host"
 telegraf__conf__outputs__librato__timeout: "5s"
 telegraf__conf__outputs__librato__template: "host.tags.measurement.field"
+
+# [[outputs.mqtt]]
+
+telegraf__conf__outputs__mqtt__enabled: false
+telegraf__conf__outputs__mqtt__servers:
+    - "localhost:1883"
+telegraf__conf__outputs__mqtt__topic_prefix: "telegraf"
+telegraf__conf__outputs__mqtt__username: ""
+telegraf__conf__outputs__mqtt__password: ""
+telegraf__conf__outputs__mqtt__ssl__enabled: false
+telegraf__conf__outputs__mqtt__ssl__ssl_ca: "/etc/telegraf/ca.pem"
+telegraf__conf__outputs__mqtt__ssl__ssl_cert: "/etc/telegraf/cert.pem"
+telegraf__conf__outputs__mqtt__ssl__ssl_key: "/etc/telegraf/key.pem"
+telegraf__conf__outputs__mqtt__ssl__insecure_skip_verify: false
+telegraf__conf__outputs__mqtt__ssl__data_format: "influx"
