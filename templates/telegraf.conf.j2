@@ -267,11 +267,10 @@
   skip_serial_number = {{ telegraf__conf__inputs__diskio__skip_serial_number|lower }}
 
 {% endif %}
-# Get kernel statistics from /proc/stat
+{% if telegraf__conf__inputs__kernel__enabled %}
 [[inputs.kernel]]
-  # no configuration
 
-
+{% endif %}
 # Read metrics about memory usage
 [[inputs.mem]]
   # no configuration

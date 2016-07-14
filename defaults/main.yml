@@ -211,3 +211,7 @@ telegraf__conf__inputs__disk__ignore_fs:
 telegraf__conf__inputs__diskio__enabled: true
 telegraf__conf__inputs__diskio__devices: []
 telegraf__conf__inputs__diskio__skip_serial_number: false
+
+# [[inputs.kernel]]
+
+telegraf__conf__inputs__kernel__enabled: true
