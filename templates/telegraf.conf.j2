@@ -411,18 +411,17 @@
   timeout     = {{ telegraf__conf__inputs__dns_query__timeout }}
 
 {% endif %}
-# # Read metrics about docker containers
-# [[inputs.docker]]
-#   ## Docker Endpoint
-#   ##   To use TCP, set endpoint = "tcp://[ip]:[port]"
-#   ##   To use environment variables (ie, docker-machine), set endpoint = "ENV"
-#   endpoint = "unix:///var/run/docker.sock"
-#   ## Only collect metrics for these containers, collect all if empty
-#   container_names = []
-#   ## Timeout for docker list, info, and stats commands
-#   timeout = "5s"
+{% if telegraf__conf__inputs__docker__enabled %}
+[[inputs.docker]]
+  endpoint        = "{{ telegraf__conf__inputs__docker__endpoint }}"
+  container_names = [
+{% for container_name in telegraf__conf__inputs__docker__container_name %}
+    "{{ container_name }}",
+{% endfor %}
+  ]
+  timeout         = "{{ telegraf__conf__inputs__docker__timepoint }}"
 
-
+{% endif %}
 # # Read statistics from one or many dovecot servers
 # [[inputs.dovecot]]
 #   ## specify dovecot servers via an address:port list

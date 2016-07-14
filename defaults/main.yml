@@ -318,3 +318,10 @@ telegraf__conf__inputs__dns_query__domains:
 telegraf__conf__inputs__dns_query__record_type: "A"
 telegraf__conf__inputs__dns_query__port: 53
 telegraf__conf__inputs__dns_query__timeout: 2
+
+# [[inputs.docker]]
+
+telegraf__conf__inputs__docker__enabled: false
+telegraf__conf__inputs__docker__endpoint: "unix:///var/run/docker.sock"
+telegraf__conf__inputs__docker__container_name: []
+telegraf__conf__inputs__docker__timepoint: "5s"
