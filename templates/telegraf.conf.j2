@@ -239,17 +239,22 @@
   ]
 
 {% endif %}
-# Read metrics about disk usage by mount point
+{% if telegraf__conf__inputs__cpu__enabled %}
 [[inputs.disk]]
-  ## By default, telegraf gather stats for all mountpoints.
-  ## Setting mountpoints will restrict the stats to the specified mountpoints.
-  # mount_points = ["/"]
+{% if telegraf__conf__inputs__disk__mount_points %}
+  mount_points = [
+{% for mount_point in telegraf__conf__inputs__disk__mount_points %}
+    "{{ mount_point }}",
+{% endfor %}
+  ]
+{% endif %}
+  ignore_fs = [
+{% for ignore_fs in telegraf__conf__inputs__disk__ignore_fs %}
+    "{{ ignore_fs }}",
+{% endfor %}
+  ]
 
-  ## Ignore some mountpoints by filesystem type. For example (dev)tmpfs (usually
-  ## present on /run, /var/run, /dev/shm or /dev).
-  ignore_fs = ["tmpfs", "devtmpfs"]
-
-
+{% endif %}
 # Read metrics about disk IO by device
 [[inputs.diskio]]
   ## By default, telegraf will gather stats for all devices including

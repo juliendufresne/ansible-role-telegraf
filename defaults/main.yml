@@ -197,3 +197,11 @@ telegraf__conf__inputs__cpu__percpu: true
 telegraf__conf__inputs__cpu__totalcpu: true
 telegraf__conf__inputs__cpu__fielddrop:
     - "time_*"
+
+# [[inputs.disk]]
+
+telegraf__conf__inputs__disk__enabled: true
+telegraf__conf__inputs__disk__mount_points: []
+telegraf__conf__inputs__disk__ignore_fs:
+    - "tmpfs"
+    - "devtmpfs"
