@@ -92,14 +92,11 @@
   namespace  = '{{ telegraf__conf__outputs__cloudwatch__namespace }}'
 {% endif %}
 
-
-# # Configuration for DataDog API to send metrics to.
-# [[outputs.datadog]]
-#   ## Datadog API key
-#   apikey = "my-secret-key" # required.
-#
-#   ## Connection timeout.
-#   # timeout = "5s"
+{% if telegraf__conf__outputs__datadog__enabled %}
+[[outputs.datadog]]
+  apikey  = "{{ telegraf__conf__outputs__datadog__apikey }}"
+  timeout = "{{ telegraf__conf__outputs__datadog__timeout }}"
+{% endif %}
 
 
 # # Send telegraf metrics to file(s)

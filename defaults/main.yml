@@ -77,3 +77,9 @@ telegraf__conf__outputs__cloudwatch__region: "us-east-1"
 telegraf__conf__outputs__cloudwatch__access_key: ""
 telegraf__conf__outputs__cloudwatch__secret_key: ""
 telegraf__conf__outputs__cloudwatch__namespace: "InfluxData/Telegraf"
+
+# [[outputs.datadog]]
+
+telegraf__conf__outputs__datadog__enabled: false
+telegraf__conf__outputs__datadog__apikey: "my-secret-key"
+telegraf__conf__outputs__datadog__timeout: "5s"
