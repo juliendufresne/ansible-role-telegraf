@@ -376,13 +376,15 @@
   ]
 
 {% endif %}
-# # Read CouchDB Stats from one or more servers
-# [[inputs.couchdb]]
-#   ## Works with CouchDB stats endpoints out of the box
-#   ## Multiple HOSTs from which to read CouchDB stats:
-#   hosts = ["http://localhost:8086/_stats"]
+{% if telegraf__conf__inputs__couchdb__enabled %}
+[[inputs.couchdb]]
+  hosts = [
+{% for host in telegraf__conf__inputs__couchdb__hosts %}
+    "{{ host }}",
+{% endfor %}
+  ]
 
-
+{% endif %}
 # # Read metrics from one or many disque servers
 # [[inputs.disque]]
 #   ## An array of URI to gather stats about. Specify an ip or hostname

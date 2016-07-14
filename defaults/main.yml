@@ -295,3 +295,9 @@ telegraf__conf__inputs__cloudwatch__metrics__dimensions__value: "p-example"
 telegraf__conf__inputs__couchbase__enabled: false
 telegraf__conf__inputs__couchbase__servers:
   - "http://localhost:8091"
+
+# [[inputs.couchdb]]
+
+telegraf__conf__inputs__couchdb__enabled: false
+telegraf__conf__inputs__couchdb__hosts:
+  - "http://localhost:8086/_stats"
