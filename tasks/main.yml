@@ -3,6 +3,21 @@
 - name: Setup
   include: setup.yml
 
+- name: Write config
+  become: true
+  become_user: "{{ telegraf_install_user }}"
+  template:
+    src: telegraf.conf.j2
+    dest: "{{ telegraf_config_dir }}/{{ telegraf_config_file }}"
+    group: "{{ telegraf_group }}"
+    owner: "{{ telegraf_user }}"
+    backup: yes
+  notify:
+    - restart telegraf
+  tags:
+    - telegraf
+    - config
+
 - name: start service
   become: true
   become_user: "{{ telegraf_install_user }}"
