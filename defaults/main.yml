@@ -52,3 +52,20 @@ telegraf__conf__outputs__amon__enabled: false
 telegraf__conf__outputs__amon__server_key: "my-server-key"
 telegraf__conf__outputs__amon__amon_instance: "https://youramoninstance"
 telegraf__conf__outputs__amon__timeout: "5s"
+
+# [[outputs.amqp]]
+
+telegraf__conf__outputs__amqp__enabled: false
+telegraf__conf__outputs__amqp__url: "amqp://localhost:5672/influxdb"
+telegraf__conf__outputs__amqp__exchange: "telegraf"
+telegraf__conf__outputs__amqp__auth_method: "PLAIN"
+telegraf__conf__outputs__amqp__routing_tag: "host"
+telegraf__conf__outputs__amqp__retention_policy: "default"
+telegraf__conf__outputs__amqp__database: "telegraf"
+telegraf__conf__outputs__amqp__precision: "s"
+telegraf__conf__outputs__amqp__ssl__enabled: false
+telegraf__conf__outputs__amqp__ssl__ssl_ca: "/etc/telegraf/ca.pem"
+telegraf__conf__outputs__amqp__ssl__ssl_cert: "/etc/telegraf/cert.pem"
+telegraf__conf__outputs__amqp__ssl__ssl_key: "/etc/telegraf/key.pem"
+telegraf__conf__outputs__amqp__ssl__insecure_skip_verify: false
+telegraf__conf__outputs__amqp__data_format: "influx"
