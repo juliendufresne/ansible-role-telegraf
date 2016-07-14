@@ -305,18 +305,16 @@
 ]
 
 {% endif %}
-# # Read metrics of bcache from stats_total and dirty_data
-# [[inputs.bcache]]
-#   ## Bcache sets path
-#   ## If not specified, then default is:
-#   bcachePath = "/sys/fs/bcache"
-#
-#   ## By default, telegraf gather stats for all bcache devices
-#   ## Setting devices will restrict the stats to the specified
-#   ## bcache devices.
-#   bcacheDevs = ["bcache0"]
+{% if telegraf__conf__inputs__bcache__enabled %}
+[[inputs.bcache]]
+  bcachePath = "{{ telegraf__conf__inputs__bcache__bcachePath }}"
+  bcacheDevs = [
+{% for bcacheDev in telegraf__conf__inputs__bcache__bcacheDevs %}
+  "{{ bcacheDev }}",
+{% endfor %}
+]
 
-
+{% endif %}
 # # Read Cassandra metrics through Jolokia
 # [[inputs.cassandra]]
 #   # This is the context root used to compose the jolokia url

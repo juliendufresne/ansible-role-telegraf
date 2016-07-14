@@ -243,3 +243,11 @@ telegraf__conf__inputs__aerospike__servers:
 telegraf__conf__inputs__apache__enabled: false
 telegraf__conf__inputs__apache__urls:
     - "http://localhost/server-status?auto"
+
+# [[inputs.bcache]]
+
+telegraf__conf__inputs__bcache__enabled: false
+telegraf__conf__inputs__bcache__bcachePath: "/sys/fs/bcache"
+telegraf__conf__inputs__bcache__bcacheDevs:
+    - "bcache0"
+
