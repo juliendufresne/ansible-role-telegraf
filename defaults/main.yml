@@ -7,3 +7,5 @@ telegraf_group: root
 telegraf_user: root
 telegraf_config_dir: "/etc/telegraf"
 telegraf_config_file: "telegraf.conf"
+
+telegraf__conf__global_tags:
