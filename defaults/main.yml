@@ -377,3 +377,8 @@ telegraf__conf__inputs__http_response__follow_redirects: true
 telegraf__conf__inputs__http_response__headers__enabled: false
 telegraf__conf__inputs__http_response__headers__host: "github.com"
 telegraf__conf__inputs__http_response__headers__body: ""
+
+# [[inputs.httpjson]]
+
+# see full structure on docs/inputs.httpjson.md
+telegraf__conf__inputs__httpjson: []

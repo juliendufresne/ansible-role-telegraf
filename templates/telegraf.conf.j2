@@ -496,47 +496,46 @@
 {% endif %}
 
 {% endif %}
-# # Read flattened metrics from one or more JSON HTTP endpoints
-# [[inputs.httpjson]]
-#   ## NOTE This plugin only reads numerical measurements, strings and booleans
-#   ## will be ignored.
-#
-#   ## a name for the service being polled
-#   name = "webserver_stats"
-#
-#   ## URL of each server in the service's cluster
-#   servers = [
-#     "http://localhost:9999/stats/",
-#     "http://localhost:9998/stats/",
-#   ]
-#
-#   ## HTTP method to use: GET or POST (case-sensitive)
-#   method = "GET"
-#
-#   ## List of tag names to extract from top-level of JSON server response
-#   # tag_keys = [
-#   #   "my_tag_1",
-#   #   "my_tag_2"
-#   # ]
-#
-#   ## HTTP parameters (all values must be strings)
-#   [inputs.httpjson.parameters]
-#     event_type = "cpu_spike"
-#     threshold = "0.75"
-#
-#   ## HTTP Header parameters (all values must be strings)
-#   # [inputs.httpjson.headers]
-#   #   X-Auth-Token = "my-xauth-token"
-#   #   apiVersion = "v1"
-#
-#   ## Optional SSL Config
-#   # ssl_ca = "/etc/telegraf/ca.pem"
-#   # ssl_cert = "/etc/telegraf/cert.pem"
-#   # ssl_key = "/etc/telegraf/key.pem"
-#   ## Use SSL but skip chain & host verification
-#   # insecure_skip_verify = false
+{% for httpjson in telegraf__conf__inputs__httpjson %}
+{% if httpjson.enabled %}
+[[inputs.httpjson]]
+  name           = "{{ httpjson.name }}"
+  servers        = [
+{% for server in httpjson.servers %}
+    "{{ server }}",
+{% endfor %}
+  ]
+  method         = "{{ httpjson.method }}"
+{% if httpjson.tag_keys|default([]) %}
+  tag_keys       = [
+{% for tag_key in httpjson.tag_keys %}
+    "{{ tag_key }}",
+{% endfor %}
+  ]
+{% endif %}
+{% if httpjson.parameters|default(false) %}
+  [inputs.httpjson.parameters]
+{% for parameter_name, parameter_value in httpjson.parameters.iteritems() %}
+    {{ parameter_name }} = "{{ parameter_value }}"
+{% endfor %}
+  ]
+{% endif %}
+{% if httpjson.headers|default(false) %}
+  [inputs.httpjson.headers]
+{% for header_name, header_value in httpjson.headers.iteritems() %}
+    {{ header_name }} = "{{ header_value }}"
+{% endfor %}
+  ]
+{% endif %}
+{% if httpjson.ssl__enabled|default(false) %}
+  ssl_ca               = "{{ httpjson.ssl__ssl_ca }}"
+  ssl_cert             = "{{ httpjson.ssl__ssl_cert }}"
+  ssl_key              = "{{ httpjson.ssl__ssl_key }}"
+  insecure_skip_verify = {{ httpjson.ssl__insecure_skip_verify|lower }}
+{% endif %}
 
-
+{% endif %}
+{% endfor %}
 # # Read InfluxDB-formatted JSON metrics from one or more HTTP endpoints
 # [[inputs.influxdb]]
 #   ## Works with InfluxDB debug endpoints out of the box,
