@@ -448,24 +448,18 @@
   cluster_health = {{ telegraf__conf__inputs__elasticsearch__cluster_health|lower }}
 
 {% endif %}
-# # Read metrics from one or more commands that can output to stdout
-# [[inputs.exec]]
-#   ## Commands array
-#   commands = ["/tmp/test.sh", "/usr/bin/mycollector --foo=bar"]
-#
-#   ## Timeout for each command to complete.
-#   timeout = "5s"
-#
-#   ## measurement name suffix (for separating different commands)
-#   name_suffix = "_mycollector"
-#
-#   ## Data format to consume.
-#   ## Each data format has it's own unique set of configuration options, read
-#   ## more about them here:
-#   ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_INPUT.md
-#   data_format = "influx"
+{% if telegraf__conf__inputs__exec__enabled %}
+[[inputs.exec]]
+  commands    = [
+{% for command in telegraf__conf__inputs__exec__commands %}
+    "{{ command }}",
+{% endfor %}
+  ]
+  timeout     = "{{ telegraf__conf__inputs__exec__timeout }}"
+  name_suffix = "{{ telegraf__conf__inputs__exec__name_suffix }}"
+  data_format = "{{ telegraf__conf__inputs__exec__data_format }}"
 
-
+{% endif %}
 # # Read stats about given file(s)
 # [[inputs.filestat]]
 #   ## Files to gather stats about.

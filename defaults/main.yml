@@ -342,3 +342,13 @@ telegraf__conf__inputs__elasticsearch__servers:
   - "http://localhost:9200"
 telegraf__conf__inputs__elasticsearch__local: true
 telegraf__conf__inputs__elasticsearch__cluster_health: false
+
+# [[inputs.exec]]
+
+telegraf__conf__inputs__exec__enabled: false
+telegraf__conf__inputs__exec__commands:
+  - "/tmp/test.sh"
+  - "/usr/bin/mycollector --foo=bar"
+telegraf__conf__inputs__exec__timeout: "5s"
+telegraf__conf__inputs__exec__name_suffix: "_mycollector"
+telegraf__conf__inputs__exec__data_format: "influx"
