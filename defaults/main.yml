@@ -182,3 +182,10 @@ telegraf__conf__outputs__opentsdb__debug: false
 
 telegraf__conf__outputs__prometheus_client__enabled: false
 telegraf__conf__outputs__prometheus_client__listen: ":9126"
+
+# [[outputs.riemann]]
+
+telegraf__conf__outputs__riemann__enabled: false
+telegraf__conf__outputs__riemann__url: "localhost:5555"
+telegraf__conf__outputs__riemann__transport: "tcp"
+telegraf__conf__outputs__riemann__separator: " "
