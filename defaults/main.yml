@@ -219,3 +219,7 @@ telegraf__conf__inputs__kernel__enabled: true
 # [[inputs.mem]]
 
 telegraf__conf__inputs__mem__enabled: true
+
+# [[inputs.processes]]
+
+telegraf__conf__inputs__processes__enabled: true

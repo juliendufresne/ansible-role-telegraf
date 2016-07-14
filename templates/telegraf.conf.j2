@@ -275,11 +275,10 @@
 [[inputs.mem]]
 
 {% endif %}
-# Get the number of processes and group them by status
+{% if telegraf__conf__inputs__processes__enabled %}
 [[inputs.processes]]
-  # no configuration
 
-
+{% endif %}
 # Read metrics about swap memory usage
 [[inputs.swap]]
   # no configuration
