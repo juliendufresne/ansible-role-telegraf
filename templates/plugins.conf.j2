@@ -1,0 +1,38 @@
+{{ ansible_managed|comment }}
+###############################################################################
+#                            {{ item.type|default('inputs')|upper }} PLUGINS                                   #
+###############################################################################
+{% macro display_parameter(parameter_name, parameter_value, space) -%}
+{% if parameter_value is sameas true or parameter_value is sameas false %}
+{{ space }}  {{ parameter_name }} = {{ parameter_value|lower }}
+{% elif parameter_value is string %}
+{{ space }}  {{ parameter_name }} = "{{ parameter_value }}"
+{% elif parameter_value is number %}
+{{ space }}  {{ parameter_name }} = {{ parameter_value }}
+{% else %}
+{{ space }}  {{ parameter_name }} = [
+{% for val in parameter_value %}
+{{ space }}    {% if val is string %}"{{ val }}"{% else %}{{ val }}{% endif %},
+{% endfor %}
+{{ space }}  ]
+{% endif %}
+{%- endmacro %}
+
+{% macro display_section(item, space_indent=0) %}
+{% set space = ""|indent(space_indent * 2, true) %}
+{% if item.enabled|default(true) %}
+{{ space }}[[{{ item.type|default('inputs') }}.{{ item.name }}]]
+{% if item.parameters is defined and item.parameters is mapping %}
+{% for parameter_name, parameter_value in item.parameters.iteritems() %}
+{{ display_parameter(parameter_name, parameter_value, space) }}
+{%- endfor %}
+{% endif %}
+{% if item.sections is defined %}
+{% for section in item.sections %}
+{{ display_section(section, space_indent + 1) }}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% endmacro %}
+
+{{ display_section(item) }}

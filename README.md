@@ -196,6 +196,31 @@ will output something like:
       value = "*"
 ```
 
+**extra plugins**  
+Suppose you want to add an inputs only when a service is activated.  
+For instance, let's suppose you will install elasticsearch and want to activate
+the elasticsearch inputs in telegraf.  
+This is not possible with the `telegraf__conf__plugins` because you want
+it to be the same for every servers.  
+
+What you can do is create a file in telegraf.d directory for each extra 
+plugins you want to activate.
+The `telegraf__conf__plugins__extra` variable is here for that.
+
+Example:
+
+```yml
+# cat group_vars/search_servers
+telegraf__conf__plugins__extra:
+    - name: elasticsearch
+      enabled: true
+      parameters:
+        servers:
+          - "http://localhost:9200"
+        local: true
+        cluster_health: false
+```
+
 Dependencies
 ------------
 

@@ -3,7 +3,7 @@
 - name: Setup
   include: setup.yml
 
-- name: Write config
+- name: Write default config
   become: true
   become_user: "{{ telegraf_install_user }}"
   template:
@@ -12,6 +12,23 @@
     group: "{{ telegraf_group }}"
     owner: "{{ telegraf_user }}"
     backup: yes
+  notify:
+    - restart telegraf
+  tags:
+    - telegraf
+    - config
+
+- name: Write extra config
+  become: true
+  become_user: "{{ telegraf_install_user }}"
+  template:
+    src: plugins.conf.j2
+    dest: "{{ telegraf_config_dir }}/telegraf.d/{{ item.name }}.conf"
+    group: "{{ telegraf_group }}"
+    owner: "{{ telegraf_user }}"
+    backup: yes
+  with_items: "{{ telegraf__conf__plugins__extra }}"
+  when: "telegraf__conf__plugins__extra is iterable"
   notify:
     - restart telegraf
   tags:

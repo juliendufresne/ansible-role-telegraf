@@ -1,11 +1,5 @@
 {{ ansible_managed|comment }}
-{% macro plugins(conf, plugin_type, plugin_name='') %}
-{% for plugin in conf if plugin.enabled|default(true) recursive %}
-{% if loop.depth0 > 0 or plugin.type|default('inputs') == plugin_type %}
-{% set space = ""|indent(loop.depth0 * 2, true) %}
-{{ space }}[[{{ plugin_type }}.{{ plugin.name }}]]
-{% if plugin.parameters is defined and plugin.parameters is iterable %}
-{% for parameter_name, parameter_value in plugin.parameters.iteritems() %}
+{% macro display_parameter(parameter_name, parameter_value, space) -%}
 {% if parameter_value is sameas true or parameter_value is sameas false %}
 {{ space }}  {{ parameter_name }} = {{ parameter_value|lower }}
 {% elif parameter_value is string %}
@@ -19,7 +13,28 @@
 {% endfor %}
 {{ space }}  ]
 {% endif %}
+{%- endmacro %}
+
+{% macro plugins(conf, plugin_type) %}
+{% set exists = [] %}
+{% for plugin in conf if plugin.enabled|default(true) and plugin.type|default('inputs') == plugin_type %}
+{% if exists.append(1) %}
+{% endif %}
 {% endfor %}
+{% if exists %}
+###############################################################################
+#                            {{ plugin_type|upper }} PLUGINS                                   #
+###############################################################################
+{% endif %}
+{% for plugin in conf if plugin.enabled|default(true) recursive %}
+{% if loop.depth0 > 0 or plugin.type|default('inputs') == plugin_type %}
+{% set space = ""|indent(loop.depth0 * 2, true) %}
+{{ space }}[[{{ plugin_type }}.{{ plugin.name }}]]
+{% if plugin.parameters is defined and plugin.parameters is iterable %}
+{% for parameter_name, parameter_value in plugin.parameters.iteritems() %}
+{{ display_parameter(parameter_name, parameter_value, space) }}
+
+{%- endfor %}
 {% endif %}
 {% if plugin.sections is defined %}
 {{ loop(plugin.sections) }}
@@ -50,13 +65,7 @@
   hostname            = "{{ telegraf__conf__agent__hostname }}"
   omit_hostname       = {{ telegraf__conf__agent__omit_hostname|lower }}
 
-{% if telegraf__conf__plugins is defined and telegraf__conf__plugins is iterable %}
-###############################################################################
-#                            OUTPUT PLUGINS                                   #
-###############################################################################
+{% if telegraf__conf__plugins is iterable %}
 {{ plugins(telegraf__conf__plugins, 'outputs') }}
-###############################################################################
-#                            INPUT PLUGINS                                    #
-###############################################################################
 {{ plugins(telegraf__conf__plugins, 'inputs') }}
 {% endif %}

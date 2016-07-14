@@ -54,3 +54,5 @@ telegraf__conf__plugins:
   - name: processes
   - name: swap
   - name: system
+
+telegraf__conf__plugins__extra:
