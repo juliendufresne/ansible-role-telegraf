@@ -98,17 +98,15 @@
   timeout = "{{ telegraf__conf__outputs__datadog__timeout }}"
 {% endif %}
 
-
-# # Send telegraf metrics to file(s)
-# [[outputs.file]]
-#   ## Files to write to, "stdout" is a specially handled file.
-#   files = ["stdout", "/tmp/metrics.out"]
-#
-#   ## Data format to output.
-#   ## Each data format has it's own unique set of configuration options, read
-#   ## more about them here:
-#   ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md
-#   data_format = "influx"
+{% if telegraf__conf__outputs__file__enabled %}
+[[outputs.file]]
+  files       = [
+{% for file in telegraf__conf__outputs__file__files %}
+    "{{ file }}",
+{% endfor %}
+  ]
+  data_format = "{{ telegraf__conf__outputs__file__data_format }}"
+{% endif %}
 
 
 # # Configuration for Graphite server to send metrics to

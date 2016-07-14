@@ -83,3 +83,11 @@ telegraf__conf__outputs__cloudwatch__namespace: "InfluxData/Telegraf"
 telegraf__conf__outputs__datadog__enabled: false
 telegraf__conf__outputs__datadog__apikey: "my-secret-key"
 telegraf__conf__outputs__datadog__timeout: "5s"
+
+# [[outputs.file]]
+
+telegraf__conf__outputs__file__enabled: false
+telegraf__conf__outputs__file__files:
+    - "stdout"
+    - "/tmp/metrics.out"
+telegraf__conf__outputs__file__data_format: "influx"
