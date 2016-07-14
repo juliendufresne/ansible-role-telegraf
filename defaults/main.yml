@@ -162,3 +162,10 @@ telegraf__conf__outputs__mqtt__ssl__ssl_cert: "/etc/telegraf/cert.pem"
 telegraf__conf__outputs__mqtt__ssl__ssl_key: "/etc/telegraf/key.pem"
 telegraf__conf__outputs__mqtt__ssl__insecure_skip_verify: false
 telegraf__conf__outputs__mqtt__ssl__data_format: "influx"
+
+# [[outputs.nsq]]
+
+telegraf__conf__outputs__nsq__enabled: false
+telegraf__conf__outputs__nsq__server: "localhost:4150"
+telegraf__conf__outputs__nsq__topic: "telegraf"
+telegraf__conf__outputs__nsq__data_format: "influx"
