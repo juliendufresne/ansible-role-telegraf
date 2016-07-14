@@ -287,14 +287,15 @@
 [[inputs.system]]
 
 {% endif %}
-# # Read stats from an aerospike server
-# [[inputs.aerospike]]
-#   ## Aerospike servers to connect to (with port)
-#   ## This plugin will query all namespaces the aerospike
-#   ## server has configured and get stats for them.
-#   servers = ["localhost:3000"]
+{% if telegraf__conf__inputs__aerospike__enabled %}
+[[inputs.aerospike]]
+  servers = [
+{% for server in telegraf__conf__inputs__aerospike__servers %}
+    "{{ server }}",
+{% endfor %}
+]
 
-
+{% endif %}
 # # Read Apache status information (mod_status)
 # [[inputs.apache]]
 #   ## An array of Apache status URI to gather stats.

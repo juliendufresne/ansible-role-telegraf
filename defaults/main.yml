@@ -231,3 +231,9 @@ telegraf__conf__inputs__swap__enabled: true
 # [[inputs.system]]
 
 telegraf__conf__inputs__system__enabled: true
+
+# [[inputs.aerospike]]
+
+telegraf__conf__inputs__aerospike__enabled: false
+telegraf__conf__inputs__aerospike__servers:
+    - "localhost:3000"
