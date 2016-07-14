@@ -20,7 +20,6 @@
   hostname            = "{{ telegraf__conf__agent__hostname }}"
   omit_hostname       = {{ telegraf__conf__agent__omit_hostname|lower }}
 
-
 ###############################################################################
 #                            OUTPUT PLUGINS                                   #
 ###############################################################################
@@ -53,15 +52,15 @@
   ssl_key              = "{{ telegraf__conf__outputs__influxdb__ssl__ssl_key }}"
   insecure_skip_verify = {{ telegraf__conf__outputs__influxdb__ssl__insecure_skip_verify|lower }}
 {% endif %}
-{% endif %}
 
+{% endif %}
 {% if telegraf__conf__outputs__amon__enabled %}
 [[outputs.amon]]
   server_key    = "{{ telegraf__conf__outputs__amon__server_key }}"
   amon_instance = "{{ telegraf__conf__outputs__amon__amon_instance }}"
   timeout       = "{{ telegraf__conf__outputs__amon__timeout }}"
-{% endif %}
 
+{% endif %}
 {% if telegraf__conf__outputs__amqp__enabled %}
 [[outputs.amqp]]
   url                  = "{{ telegraf__conf__outputs__amqp__url }}"
@@ -78,8 +77,8 @@
   insecure_skip_verify = {{ telegraf__conf__outputs__amqp__ssl__insecure_skip_verify|lower }}
 {% endif %}
   data_format          = "{{ telegraf__conf__outputs__amqp__data_format }}"
-{% endif %}
 
+{% endif %}
 {% if telegraf__conf__outputs__cloudwatch__enabled %}
 [[outputs.cloudwatch]]
   region     = '{{ telegraf__conf__outputs__cloudwatch__region }}'
@@ -90,14 +89,14 @@
   secret_key = "{{ telegraf__conf__outputs__cloudwatch__secret_key }}"
 {% endif %}
   namespace  = '{{ telegraf__conf__outputs__cloudwatch__namespace }}'
-{% endif %}
 
+{% endif %}
 {% if telegraf__conf__outputs__datadog__enabled %}
 [[outputs.datadog]]
   apikey  = "{{ telegraf__conf__outputs__datadog__apikey }}"
   timeout = "{{ telegraf__conf__outputs__datadog__timeout }}"
-{% endif %}
 
+{% endif %}
 {% if telegraf__conf__outputs__file__enabled %}
 [[outputs.file]]
   files       = [
@@ -106,9 +105,8 @@
 {% endfor %}
   ]
   data_format = "{{ telegraf__conf__outputs__file__data_format }}"
+
 {% endif %}
-
-
 {% if telegraf__conf__outputs__graphite__enabled %}
 [[outputs.graphite]]
   servers  = [
@@ -119,9 +117,8 @@
   prefix   = "{{ telegraf__conf__outputs__graphite__prefix }}"
   template = "{{ telegraf__conf__outputs__graphite__template }}"
   timeout  = {{ telegraf__conf__outputs__graphite__timeout }}
+
 {% endif %}
-
-
 # # Configuration for sending metrics to an Instrumental project
 # [[outputs.instrumental]]
 #   ## Project API Token (required)
