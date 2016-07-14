@@ -479,25 +479,23 @@
   ]
 
 {% endif %}
-# # HTTP/HTTPS request given an address a method and a timeout
-# [[inputs.http_response]]
-#   ## Server address (default http://localhost)
-#   address = "http://github.com"
-#   ## Set response_timeout (default 5 seconds)
-#   response_timeout = "5s"
-#   ## HTTP Request Method
-#   method = "GET"
-#   ## Whether to follow redirects from the server (defaults to false)
-#   follow_redirects = true
-#   ## HTTP Request Headers (all values must be strings)
-#   # [inputs.http_response.headers]
-#   #   Host = "github.com"
-#   ## Optional HTTP Request Body
-#   # body = '''
-#   # {'fake':'data'}
-#   # '''
+{% if telegraf__conf__inputs__http_response__enabled %}
+[[inputs.http_response]]
+  address          = "{{ telegraf__conf__inputs__http_response__address }}"
+  response_timeout = "{{ telegraf__conf__inputs__http_response__response_timeout }}"
+  method           = "{{ telegraf__conf__inputs__http_response__method }}"
+  follow_redirects = {{ telegraf__conf__inputs__http_response__follow_redirects|lower }}
+{% if telegraf__conf__inputs__http_response__headers__enabled %}
+  [inputs.http_response.headers]
+    Host           = "{{ telegraf__conf__inputs__http_response__headers__host }}"
+{% if telegraf__conf__inputs__http_response__headers__body %}
+    body           = '''
+    {{ telegraf__conf__inputs__http_response__headers__body }}
+    '''
+{% endif %}
+{% endif %}
 
-
+{% endif %}
 # # Read flattened metrics from one or more JSON HTTP endpoints
 # [[inputs.httpjson]]
 #   ## NOTE This plugin only reads numerical measurements, strings and booleans

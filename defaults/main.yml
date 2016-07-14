@@ -366,3 +366,14 @@ telegraf__conf__inputs__haproxy__enabled: false
 telegraf__conf__inputs__haproxy__servers:
   - "http://myhaproxy.com:1936"
   - "http://anotherhaproxy.com:1936"
+
+# [[inputs.http_response]]
+
+telegraf__conf__inputs__http_response__enabled: false
+telegraf__conf__inputs__http_response__address: "http://github.com"
+telegraf__conf__inputs__http_response__response_timeout: "5s"
+telegraf__conf__inputs__http_response__method: "GET"
+telegraf__conf__inputs__http_response__follow_redirects: true
+telegraf__conf__inputs__http_response__headers__enabled: false
+telegraf__conf__inputs__http_response__headers__host: "github.com"
+telegraf__conf__inputs__http_response__headers__body: ""
