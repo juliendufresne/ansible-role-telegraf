@@ -8,4 +8,20 @@ telegraf_user: root
 telegraf_config_dir: "/etc/telegraf"
 telegraf_config_file: "telegraf.conf"
 
+# Below this line, you will find all configurable variable for the config_file
+
 telegraf__conf__global_tags:
+
+# [agent]
+
+telegraf__conf__agent__interval: "10s"
+telegraf__conf__agent__round_interval: true
+telegraf__conf__agent__metric_batch_size: 1000
+telegraf__conf__agent__metric_buffer_limit:  10000
+telegraf__conf__agent__collection_jitter: "0s"
+telegraf__conf__agent__flush_interval: "10s"
+telegraf__conf__agent__flush_jitter: "0s"
+telegraf__conf__agent__debug: false
+telegraf__conf__agent__quiet: false
+telegraf__conf__agent__hostname: ""
+telegraf__conf__agent__omit_hostname: false
