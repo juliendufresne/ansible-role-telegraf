@@ -330,24 +330,15 @@
   ]
 
 {% endif %}
-# # Collects performance metrics from the MON and OSD nodes in a Ceph storage cluster.
-# [[inputs.ceph]]
-#   ## All configuration values are optional, defaults are shown below
-#
-#   ## location of ceph binary
-#   ceph_binary = "/usr/bin/ceph"
-#
-#   ## directory in which to look for socket files
-#   socket_dir = "/var/run/ceph"
-#
-#   ## prefix of MON and OSD socket files, used to determine socket type
-#   mon_prefix = "ceph-mon"
-#   osd_prefix = "ceph-osd"
-#
-#   ## suffix used to identify socket files
-#   socket_suffix = "asok"
+{% if telegraf__conf__inputs__ceph__enabled %}
+[[inputs.ceph]]
+  ceph_binary   = "{{ telegraf__conf__inputs__ceph__ceph_binary }}"
+  socket_dir    = "{{ telegraf__conf__inputs__ceph__socket_dir }}"
+  mon_prefix    = "{{ telegraf__conf__inputs__ceph__mon_prefix }}"
+  osd_prefix    = "{{ telegraf__conf__inputs__ceph__osd_prefix }}"
+  socket_suffix = "{{ telegraf__conf__inputs__ceph__socket_suffix }}"
 
-
+{% endif %}
 # # Pull Metric Statistics from Amazon CloudWatch
 # [[inputs.cloudwatch]]
 #   ## Amazon Region

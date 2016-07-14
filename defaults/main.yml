@@ -262,3 +262,12 @@ telegraf__conf__inputs__cassandra__servers:
 telegraf__conf__inputs__cassandra__metrics:
   - "/java.lang:type=Memory/HeapMemoryUsage"
   - "/org.apache.cassandra.metrics:type=Table,keyspace=*,scope=*,name=ReadLatency"
+
+# [[inputs.ceph]]
+
+telegraf__conf__inputs__ceph__enabled: false
+telegraf__conf__inputs__ceph__ceph_binary: "/usr/bin/ceph"
+telegraf__conf__inputs__ceph__socket_dir: "/var/run/ceph"
+telegraf__conf__inputs__ceph__mon_prefix: "ceph-mon"
+telegraf__conf__inputs__ceph__osd_prefix: "ceph-osd"
+telegraf__conf__inputs__ceph__socket_suffix: "asok"
