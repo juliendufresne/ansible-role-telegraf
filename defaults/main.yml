@@ -45,3 +45,10 @@ telegraf__conf__outputs__influxdb__ssl__ssl_ca: "/etc/telegraf/ca.pem"
 telegraf__conf__outputs__influxdb__ssl__ssl_cert: "/etc/telegraf/cert.pem"
 telegraf__conf__outputs__influxdb__ssl__ssl_key: "/etc/telegraf/key.pem"
 telegraf__conf__outputs__influxdb__ssl__insecure_skip_verify: false
+
+# [[outputs.amon]]
+
+telegraf__conf__outputs__amon__enabled: false
+telegraf__conf__outputs__amon__server_key: "my-server-key"
+telegraf__conf__outputs__amon__amon_instance: "https://youramoninstance"
+telegraf__conf__outputs__amon__timeout: "5s"

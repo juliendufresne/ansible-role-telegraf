@@ -55,17 +55,12 @@
 {% endif %}
 {% endif %}
 
-# # Configuration for Amon Server to send metrics to.
-# [[outputs.amon]]
-#   ## Amon Server Key
-#   server_key = "my-server-key" # required.
-#
-#   ## Amon Instance URL
-#   amon_instance = "https://youramoninstance" # required
-#
-#   ## Connection timeout.
-#   # timeout = "5s"
-
+{% if telegraf__conf__outputs__amon__enabled %}
+[[outputs.amon]]
+  server_key    = "{{ telegraf__conf__outputs__amon__server_key }}"
+  amon_instance = "{{ telegraf__conf__outputs__amon__amon_instance }}"
+  timeout       = "{{ telegraf__conf__outputs__amon__timeout }}"
+{% endif %}
 
 # # Configuration for the AMQP server to send metrics to
 # [[outputs.amqp]]
