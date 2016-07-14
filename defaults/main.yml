@@ -359,3 +359,10 @@ telegraf__conf__inputs__filestat__enabled: false
 telegraf__conf__inputs__filestat__files:
   - "/var/log/**.log"
 telegraf__conf__inputs__filestat__md5: false
+
+# [[inputs.haproxy]]
+
+telegraf__conf__inputs__haproxy__enabled: false
+telegraf__conf__inputs__haproxy__servers:
+  - "http://myhaproxy.com:1936"
+  - "http://anotherhaproxy.com:1936"

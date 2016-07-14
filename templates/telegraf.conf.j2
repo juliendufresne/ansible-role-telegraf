@@ -470,17 +470,15 @@
   md5   = {{ telegraf__conf__inputs__filestat__md5|lower }}
 
 {% endif %}
-# # Read metrics of haproxy, via socket or csv stats page
-# [[inputs.haproxy]]
-#   ## An array of address to gather stats about. Specify an ip on hostname
-#   ## with optional port. ie localhost, 10.10.3.33:1936, etc.
-#
-#   ## If no servers are specified, then default to 127.0.0.1:1936
-#   servers = ["http://myhaproxy.com:1936", "http://anotherhaproxy.com:1936"]
-#   ## Or you can also use local socket
-#   ## servers = ["socket:/run/haproxy/admin.sock"]
+{% if telegraf__conf__inputs__haproxy__enabled %}
+[[inputs.haproxy]]
+  servers = [
+{% for server in telegraf__conf__inputs__haproxy__servers %}
+    "{{ server }}",
+{% endfor %}
+  ]
 
-
+{% endif %}
 # # HTTP/HTTPS request given an address a method and a timeout
 # [[inputs.http_response]]
 #   ## Server address (default http://localhost)
