@@ -271,3 +271,21 @@ telegraf__conf__inputs__ceph__socket_dir: "/var/run/ceph"
 telegraf__conf__inputs__ceph__mon_prefix: "ceph-mon"
 telegraf__conf__inputs__ceph__osd_prefix: "ceph-osd"
 telegraf__conf__inputs__ceph__socket_suffix: "asok"
+
+# [[inputs.cloudwatch]]
+
+telegraf__conf__inputs__cloudwatch__enabled: false
+telegraf__conf__inputs__cloudwatch__region: "us-east-1"
+telegraf__conf__inputs__cloudwatch__access_key: ""
+telegraf__conf__inputs__cloudwatch__secret_key: ""
+telegraf__conf__inputs__cloudwatch__period: "1m"
+telegraf__conf__inputs__cloudwatch__delay: "1m"
+telegraf__conf__inputs__cloudwatch__interval: "1m"
+telegraf__conf__inputs__cloudwatch__namespace: "AWS/ELB"
+telegraf__conf__inputs__cloudwatch__metrics__enabled: false
+telegraf__conf__inputs__cloudwatch__metrics__names:
+  - "Latency"
+  - "RequestCount"
+telegraf__conf__inputs__cloudwatch__metrics__dimensions__enabled: true
+telegraf__conf__inputs__cloudwatch__metrics__dimensions__name: "LoadBalancerName"
+telegraf__conf__inputs__cloudwatch__metrics__dimensions__value: "p-example"
