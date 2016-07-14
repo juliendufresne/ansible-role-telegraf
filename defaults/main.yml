@@ -352,3 +352,10 @@ telegraf__conf__inputs__exec__commands:
 telegraf__conf__inputs__exec__timeout: "5s"
 telegraf__conf__inputs__exec__name_suffix: "_mycollector"
 telegraf__conf__inputs__exec__data_format: "influx"
+
+# [[inputs.filestat]]
+
+telegraf__conf__inputs__filestat__enabled: false
+telegraf__conf__inputs__filestat__files:
+  - "/var/log/**.log"
+telegraf__conf__inputs__filestat__md5: false
