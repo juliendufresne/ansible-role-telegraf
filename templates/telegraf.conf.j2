@@ -164,26 +164,16 @@
   debug        = {{ telegraf__conf__outputs__kinesis__debug|lower }}
 
 {% endif %}
-# # Configuration for Librato API to send metrics to.
-# [[outputs.librato]]
-#   ## Librator API Docs
-#   ## http://dev.librato.com/v1/metrics-authentication
-#   ## Librato API user
-#   api_user = "telegraf@influxdb.com" # required.
-#   ## Librato API token
-#   api_token = "my-secret-token" # required.
-#   ## Debug
-#   # debug = false
-#   ## Tag Field to populate source attribute (optional)
-#   ## This is typically the _hostname_ from which the metric was obtained.
-#   source_tag = "host"
-#   ## Connection timeout.
-#   # timeout = "5s"
-#   ## Output Name Template (same as graphite buckets)
-#   ## see https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md#graphite
-#   template = "host.tags.measurement.field"
+{% if telegraf__conf__outputs__librato__enabled %}
+[[outputs.librato]]
+  api_user   = "{{ telegraf__conf__outputs__librato__api_user }}"
+  api_token  = "{{ telegraf__conf__outputs__librato__api_token }}"
+  debug      = {{ telegraf__conf__outputs__librato__debug|lower }}
+  source_tag = "{{ telegraf__conf__outputs__librato__source_tag }}"
+  timeout    = "{{ telegraf__conf__outputs__librato__timeout }}"
+  template   = "{{ telegraf__conf__outputs__librato__template }}"
 
-
+{% endif %}
 # # Configuration for MQTT server to send metrics to
 # [[outputs.mqtt]]
 #   servers = ["localhost:1883"] # required.

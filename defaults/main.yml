@@ -137,3 +137,13 @@ telegraf__conf__outputs__kinesis__streamname: "StreamName"
 telegraf__conf__outputs__kinesis__partitionkey: "PartitionKey"
 telegraf__conf__outputs__kinesis__format: "string"
 telegraf__conf__outputs__kinesis__debug: false
+
+# [[outputs.librato]]
+
+telegraf__conf__outputs__librato__enabled: false
+telegraf__conf__outputs__librato__api_user: "telegraf@influxdb.com"
+telegraf__conf__outputs__librato__api_token: "my-secret-token"
+telegraf__conf__outputs__librato__debug: false
+telegraf__conf__outputs__librato__source_tag: "host"
+telegraf__conf__outputs__librato__timeout: "5s"
+telegraf__conf__outputs__librato__template: "host.tags.measurement.field"
