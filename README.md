@@ -5,6 +5,27 @@ Ansible Role Telegraf
 
 Fully configurable [InfluxDB](https://influxdata.com/time-series-platform/telegraf/) installation and management for versions 0.13+.  
 
+Supported platforms
+-------------------
+
+_Table generated with [juliendufresne/test-ansible-roles](https://github.com/juliendufresne/test-ansible-roles)_
+
+| Distribution           | Last check date     | From scratch    | Idempotency |
+| ---------------------- | ------------------- | --------------- | ----------- |
+| CentOS 6.8 (Final)     | 2016-07-14 18:04:24 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| CentOS 7.2.1511 (Core) | 2016-07-14 18:07:34 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Debian 7.9 (wheezy)    | 2016-07-14 18:10:31 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Debian 7.10 (wheezy)   | 2016-07-14 18:14:01 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Debian 8.2 (jessie)    | 2016-07-14 18:21:14 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Debian 8.3 (jessie)    | 2016-07-14 18:24:38 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Debian 8.4 (jessie)    | 2016-07-14 18:28:05 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Ubuntu 12.04 (precise) | 2016-07-14 18:31:13 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Ubuntu 14.04 (trusty)  | 2016-07-14 18:34:32 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Ubuntu 15.04 (vivid)   | 2016-07-14 18:38:18 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Ubuntu 15.10 (wily)    | 2016-07-14 18:42:02 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+| Ubuntu 16.04 (xenial)  | 2016-07-14 19:54:28 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
+
+
 Requirements
 ------------
 
