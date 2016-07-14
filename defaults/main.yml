@@ -25,3 +25,23 @@ telegraf__conf__agent__debug: false
 telegraf__conf__agent__quiet: false
 telegraf__conf__agent__hostname: ""
 telegraf__conf__agent__omit_hostname: false
+
+# [[outputs.influxdb]]
+
+telegraf__conf__outputs__influxdb__enabled: true
+telegraf__conf__outputs__influxdb__urls:
+    - "http://localhost:8086"
+telegraf__conf__outputs__influxdb__database: "telegraf"
+telegraf__conf__outputs__influxdb__precision: "s"
+telegraf__conf__outputs__influxdb__retention_policy: "default"
+telegraf__conf__outputs__influxdb__write_consistency: "any"
+telegraf__conf__outputs__influxdb__timeout: "5s"
+telegraf__conf__outputs__influxdb__username: ""
+telegraf__conf__outputs__influxdb__password: ""
+telegraf__conf__outputs__influxdb__user_agent: ""
+telegraf__conf__outputs__influxdb__udp_payload: 512
+telegraf__conf__outputs__influxdb__ssl__enabled: false
+telegraf__conf__outputs__influxdb__ssl__ssl_ca: "/etc/telegraf/ca.pem"
+telegraf__conf__outputs__influxdb__ssl__ssl_cert: "/etc/telegraf/cert.pem"
+telegraf__conf__outputs__influxdb__ssl__ssl_key: "/etc/telegraf/key.pem"
+telegraf__conf__outputs__influxdb__ssl__insecure_skip_verify: false

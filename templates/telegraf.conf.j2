@@ -25,41 +25,35 @@
 #                            OUTPUT PLUGINS                                   #
 ###############################################################################
 
-# Configuration for influxdb server to send metrics to
+{% if telegraf__conf__outputs__influxdb__enabled %}
 [[outputs.influxdb]]
-  ## The full HTTP or UDP endpoint URL for your InfluxDB instance.
-  ## Multiple urls can be specified as part of the same cluster,
-  ## this means that only ONE of the urls will be written to each interval.
-  # urls = ["udp://localhost:8089"] # UDP endpoint example
-  urls = ["http://localhost:8086"] # required
-  ## The target database for metrics (telegraf will create it if not exists).
-  database = "telegraf" # required
-  ## Precision of writes, valid values are "ns", "us" (or "µs"), "ms", "s", "m", "h".
-  ## note: using "s" precision greatly improves InfluxDB compression.
-  precision = "s"
-
-  ## Retention policy to write to.
-  retention_policy = "default"
-  ## Write consistency (clusters only), can be: "any", "one", "quorom", "all"
-  write_consistency = "any"
-
-  ## Write timeout (for the InfluxDB client), formatted as a string.
-  ## If not provided, will default to 5s. 0s means no timeout (not recommended).
-  timeout = "5s"
-  # username = "telegraf"
-  # password = "metricsmetricsmetricsmetrics"
-  ## Set the user agent for HTTP POSTs (can be useful for log differentiation)
-  # user_agent = "telegraf"
-  ## Set UDP payload size, defaults to InfluxDB UDP Client default (512 bytes)
-  # udp_payload = 512
-
-  ## Optional SSL Config
-  # ssl_ca = "/etc/telegraf/ca.pem"
-  # ssl_cert = "/etc/telegraf/cert.pem"
-  # ssl_key = "/etc/telegraf/key.pem"
-  ## Use SSL but skip chain & host verification
-  # insecure_skip_verify = false
-
+  urls                 = [
+{% for url in telegraf__conf__outputs__influxdb__urls %}
+    "{{ url }}",
+{% endfor %}
+  ]
+  database             = "{{ telegraf__conf__outputs__influxdb__database }}"
+  precision            = "{{ telegraf__conf__outputs__influxdb__precision }}"
+  retention_policy     = "{{ telegraf__conf__outputs__influxdb__retention_policy }}"
+  write_consistency    = "{{ telegraf__conf__outputs__influxdb__write_consistency }}"
+  timeout              = "{{ telegraf__conf__outputs__influxdb__timeout }}"
+{% if telegraf__conf__outputs__influxdb__username %}
+  username             = "{{ telegraf__conf__outputs__influxdb__username }}"
+{% endif %}
+{% if telegraf__conf__outputs__influxdb__password %}
+  password             = "{{ telegraf__conf__outputs__influxdb__password }}"
+{% endif %}
+{% if telegraf__conf__outputs__influxdb__user_agent %}
+  user_agent           = "{{ telegraf__conf__outputs__influxdb__user_agent }}"
+{% endif %}
+  udp_payload          = {{ telegraf__conf__outputs__influxdb__udp_payload }}
+{% if telegraf__conf__outputs__influxdb__ssl__enabled %}
+  ssl_ca               = "{{ telegraf__conf__outputs__influxdb__ssl__ssl_ca }}"
+  ssl_cert             = "{{ telegraf__conf__outputs__influxdb__ssl__ssl_cert }}"
+  ssl_key              = "{{ telegraf__conf__outputs__influxdb__ssl__ssl_key }}"
+  insecure_skip_verify = {{ telegraf__conf__outputs__influxdb__ssl__insecure_skip_verify|lower }}
+{% endif %}
+{% endif %}
 
 # # Configuration for Amon Server to send metrics to.
 # [[outputs.amon]]
@@ -339,7 +333,6 @@
 #   transport = "tcp"
 #   ## separator to use between input name and field name in Riemann service name
 #   separator = " "
-
 
 
 ###############################################################################
@@ -1526,4 +1519,3 @@
 #   ## more about them here:
 #   ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_INPUT.md
 #   data_format = "influx"
-
