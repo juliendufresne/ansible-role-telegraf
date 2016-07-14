@@ -255,16 +255,18 @@
   ]
 
 {% endif %}
-# Read metrics about disk IO by device
+{% if telegraf__conf__inputs__diskio__enabled %}
 [[inputs.diskio]]
-  ## By default, telegraf will gather stats for all devices including
-  ## disk partitions.
-  ## Setting devices will restrict the stats to the specified devices.
-  # devices = ["sda", "sdb"]
-  ## Uncomment the following line if you do not need disk serial numbers.
-  # skip_serial_number = true
+{% if telegraf__conf__inputs__diskio__devices %}
+  devices            = [
+{% for device in telegraf__conf__inputs__diskio__devices %}
+    "{{ device }}",
+{% endfor %}
+]
+{% endif %}
+  skip_serial_number = {{ telegraf__conf__inputs__diskio__skip_serial_number|lower }}
 
-
+{% endif %}
 # Get kernel statistics from /proc/stat
 [[inputs.kernel]]
   # no configuration
