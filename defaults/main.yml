@@ -223,3 +223,7 @@ telegraf__conf__inputs__mem__enabled: true
 # [[inputs.processes]]
 
 telegraf__conf__inputs__processes__enabled: true
+
+# [[inputs.swap]]
+
+telegraf__conf__inputs__swap__enabled: true

@@ -279,9 +279,10 @@
 [[inputs.processes]]
 
 {% endif %}
-# Read metrics about swap memory usage
+{% if telegraf__conf__inputs__swap__enabled %}
 [[inputs.swap]]
-  # no configuration
+
+{% endif %}
 
 
 # Read metrics about system load & uptime
