@@ -283,13 +283,10 @@
 [[inputs.swap]]
 
 {% endif %}
-
-
-# Read metrics about system load & uptime
+{% if telegraf__conf__inputs__system__enabled %}
 [[inputs.system]]
-  # no configuration
 
-
+{% endif %}
 # # Read stats from an aerospike server
 # [[inputs.aerospike]]
 #   ## Aerospike servers to connect to (with port)
