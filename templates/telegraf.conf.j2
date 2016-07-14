@@ -149,32 +149,21 @@
   data_format          = "{{ telegraf__conf__outputs__kafka__data_format }}"
 
 {% endif %}
+{% if telegraf__conf__outputs__kinesis__enabled %}
+[[outputs.kinesis]]
+  region       = "{{ telegraf__conf__outputs__kinesis__region }}"
+{% if telegraf__conf__outputs__kinesis__access_key %}
+  access_key   = "{{ telegraf__conf__outputs__kinesis__access_key }}"
+{% endif %}
+{% if telegraf__conf__outputs__kinesis__secret_key %}
+  secret_key   = "{{ telegraf__conf__outputs__kinesis__secret_key }}"
+{% endif %}
+  streamname   = "{{ telegraf__conf__outputs__kinesis__streamname }}"
+  partitionkey = "{{ telegraf__conf__outputs__kinesis__partitionkey }}"
+  format       = "{{ telegraf__conf__outputs__kinesis__format }}"
+  debug        = {{ telegraf__conf__outputs__kinesis__debug|lower }}
 
-# # Configuration for the AWS Kinesis output.
-# [[outputs.kinesis]]
-#   ## Amazon REGION of kinesis endpoint.
-#   region = "ap-southeast-2"
-#
-#   ## Amazon Credentials
-#   ## Credentials are loaded in the following order
-#   ## 1) explicit credentials from 'access_key' and 'secret_key'
-#   ## 2) environment variables
-#   ## 3) shared credentials file
-#   ## 4) EC2 Instance Profile
-#   #access_key = ""
-#   #secret_key = ""
-#
-#   ## Kinesis StreamName must exist prior to starting telegraf.
-#   streamname = "StreamName"
-#   ## PartitionKey as used for sharding data.
-#   partitionkey = "PartitionKey"
-#   ## format of the Data payload in the kinesis PutRecord, supported
-#   ## String and Custom.
-#   format = "string"
-#   ## debug will show upstream aws messages.
-#   debug = false
-
-
+{% endif %}
 # # Configuration for Librato API to send metrics to.
 # [[outputs.librato]]
 #   ## Librator API Docs

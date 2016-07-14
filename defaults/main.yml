@@ -126,3 +126,14 @@ telegraf__conf__outputs__kafka__ssl__ssl_cert: "/etc/telegraf/cert.pem"
 telegraf__conf__outputs__kafka__ssl__ssl_key: "/etc/telegraf/key.pem"
 telegraf__conf__outputs__kafka__ssl__insecure_skip_verify: false
 telegraf__conf__outputs__kafka__data_format: "influx"
+
+# [[outputs.kinesis]]
+
+telegraf__conf__outputs__kinesis__enabled: false
+telegraf__conf__outputs__kinesis__region: "ap-southeast-2"
+telegraf__conf__outputs__kinesis__access_key: ""
+telegraf__conf__outputs__kinesis__secret_key: ""
+telegraf__conf__outputs__kinesis__streamname: "StreamName"
+telegraf__conf__outputs__kinesis__partitionkey: "PartitionKey"
+telegraf__conf__outputs__kinesis__format: "string"
+telegraf__conf__outputs__kinesis__debug: false
