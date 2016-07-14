@@ -301,3 +301,10 @@ telegraf__conf__inputs__couchbase__servers:
 telegraf__conf__inputs__couchdb__enabled: false
 telegraf__conf__inputs__couchdb__hosts:
   - "http://localhost:8086/_stats"
+
+
+# [[inputs.disque]]
+
+telegraf__conf__inputs__disque__enabled: false
+telegraf__conf__inputs__disque__servers:
+  - "localhost"
