@@ -169,3 +169,11 @@ telegraf__conf__outputs__nsq__enabled: false
 telegraf__conf__outputs__nsq__server: "localhost:4150"
 telegraf__conf__outputs__nsq__topic: "telegraf"
 telegraf__conf__outputs__nsq__data_format: "influx"
+
+# [[outputs.opentsdb]]
+
+telegraf__conf__outputs__opentsdb__enabled: false
+telegraf__conf__outputs__opentsdb__prefix: "my.specific.prefix."
+telegraf__conf__outputs__opentsdb__host: "opentsdb.example.com"
+telegraf__conf__outputs__opentsdb__port: 4242
+telegraf__conf__outputs__opentsdb__debug: false

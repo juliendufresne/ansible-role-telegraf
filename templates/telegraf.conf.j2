@@ -204,22 +204,14 @@
   data_format = "{{ telegraf__conf__outputs__nsq__data_format }}"
 
 {% endif %}
-# # Configuration for OpenTSDB server to send metrics to
-# [[outputs.opentsdb]]
-#   ## prefix for metrics keys
-#   prefix = "my.specific.prefix."
-#
-#   ## Telnet Mode ##
-#   ## DNS name of the OpenTSDB server in telnet mode
-#   host = "opentsdb.example.com"
-#
-#   ## Port of the OpenTSDB server in telnet mode
-#   port = 4242
-#
-#   ## Debug true - Prints OpenTSDB communication
-#   debug = false
+{% if telegraf__conf__outputs__opentsdb__enabled %}
+[[outputs.opentsdb]]
+  prefix = "{{ telegraf__conf__outputs__opentsdb__prefix }}"
+  host   = "{{ telegraf__conf__outputs__opentsdb__host }}"
+  port   = {{ telegraf__conf__outputs__opentsdb__port }}
+  debug  = {{ telegraf__conf__outputs__opentsdb__debug|lower }}
 
-
+{% endif %}
 # # Configuration for the Prometheus client to spawn
 # [[outputs.prometheus_client]]
 #   ## Address to listen on
