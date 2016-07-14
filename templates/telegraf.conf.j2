@@ -228,16 +228,17 @@
 #                            INPUT PLUGINS                                    #
 ###############################################################################
 
-# Read metrics about cpu usage
+{% if telegraf__conf__inputs__cpu__enabled %}
 [[inputs.cpu]]
-  ## Whether to report per-cpu stats or not
-  percpu = true
-  ## Whether to report total system cpu stats or not
-  totalcpu = true
-  ## Comment this line if you want the raw CPU time metrics
-  fielddrop = ["time_*"]
+  percpu    = true
+  totalcpu  = true
+  fielddrop = [
+{% for field in telegraf__conf__inputs__cpu__fielddrop %}
+    "{{ field }}",
+{% endfor %}
+  ]
 
-
+{% endif %}
 # Read metrics about disk usage by mount point
 [[inputs.disk]]
   ## By default, telegraf gather stats for all mountpoints.

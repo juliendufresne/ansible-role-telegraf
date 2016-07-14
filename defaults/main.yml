@@ -189,3 +189,11 @@ telegraf__conf__outputs__riemann__enabled: false
 telegraf__conf__outputs__riemann__url: "localhost:5555"
 telegraf__conf__outputs__riemann__transport: "tcp"
 telegraf__conf__outputs__riemann__separator: " "
+
+# [[inputs.cpu]]
+
+telegraf__conf__inputs__cpu__enabled: true
+telegraf__conf__inputs__cpu__percpu: true
+telegraf__conf__inputs__cpu__totalcpu: true
+telegraf__conf__inputs__cpu__fielddrop:
+    - "time_*"
