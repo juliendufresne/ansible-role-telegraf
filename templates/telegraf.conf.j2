@@ -80,23 +80,17 @@
   data_format          = "{{ telegraf__conf__outputs__amqp__data_format }}"
 {% endif %}
 
-
-# # Configuration for AWS CloudWatch output.
-# [[outputs.cloudwatch]]
-#   ## Amazon REGION
-#   region = 'us-east-1'
-#
-#   ## Amazon Credentials
-#   ## Credentials are loaded in the following order
-#   ## 1) explicit credentials from 'access_key' and 'secret_key'
-#   ## 2) environment variables
-#   ## 3) shared credentials file
-#   ## 4) EC2 Instance Profile
-#   #access_key = ""
-#   #secret_key = ""
-#
-#   ## Namespace for the CloudWatch MetricDatums
-#   namespace = 'InfluxData/Telegraf'
+{% if telegraf__conf__outputs__cloudwatch__enabled %}
+[[outputs.cloudwatch]]
+  region     = '{{ telegraf__conf__outputs__cloudwatch__region }}'
+{% if telegraf__conf__outputs__cloudwatch__access_key %}
+  access_key = "{{ telegraf__conf__outputs__cloudwatch__access_key }}"
+{% endif %}
+{% if telegraf__conf__outputs__cloudwatch__secret_key %}
+  secret_key = "{{ telegraf__conf__outputs__cloudwatch__secret_key }}"
+{% endif %}
+  namespace  = '{{ telegraf__conf__outputs__cloudwatch__namespace }}'
+{% endif %}
 
 
 # # Configuration for DataDog API to send metrics to.

@@ -69,3 +69,11 @@ telegraf__conf__outputs__amqp__ssl__ssl_cert: "/etc/telegraf/cert.pem"
 telegraf__conf__outputs__amqp__ssl__ssl_key: "/etc/telegraf/key.pem"
 telegraf__conf__outputs__amqp__ssl__insecure_skip_verify: false
 telegraf__conf__outputs__amqp__data_format: "influx"
+
+# [[outputs.cloudwatch]]
+
+telegraf__conf__outputs__cloudwatch__enabled: false
+telegraf__conf__outputs__cloudwatch__region: "us-east-1"
+telegraf__conf__outputs__cloudwatch__access_key: ""
+telegraf__conf__outputs__cloudwatch__secret_key: ""
+telegraf__conf__outputs__cloudwatch__namespace: "InfluxData/Telegraf"
