@@ -213,6 +213,7 @@ Example:
 # cat group_vars/search_servers
 telegraf__conf__plugins__extra:
     - name: elasticsearch
+      type: inputs
       enabled: true
       parameters:
         servers:
@@ -220,6 +221,8 @@ telegraf__conf__plugins__extra:
         local: true
         cluster_health: false
 ```
+
+This will produce a telegraf.d/elasticsearch.conf file
 
 Dependencies
 ------------
