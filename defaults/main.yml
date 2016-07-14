@@ -109,3 +109,20 @@ telegraf__conf__outputs__instrumental__prefix: ""
 telegraf__conf__outputs__instrumental__template: "host.tags.measurement.field"
 telegraf__conf__outputs__instrumental__timeout: "2s"
 telegraf__conf__outputs__instrumental__debug: false
+
+# [[outputs.kafka]]
+
+telegraf__conf__outputs__kafka__enabled: false
+telegraf__conf__outputs__kafka__brokers:
+    - "localhost:9092"
+telegraf__conf__outputs__kafka__topic: "telegraf"
+telegraf__conf__outputs__kafka__routing_tag: "host"
+telegraf__conf__outputs__kafka__compression_codec: 0
+telegraf__conf__outputs__kafka__required_acks: -1
+telegraf__conf__outputs__kafka__max_retry: 3
+telegraf__conf__outputs__kafka__ssl__enabled: false
+telegraf__conf__outputs__kafka__ssl__ssl_ca: "/etc/telegraf/ca.pem"
+telegraf__conf__outputs__kafka__ssl__ssl_cert: "/etc/telegraf/cert.pem"
+telegraf__conf__outputs__kafka__ssl__ssl_key: "/etc/telegraf/key.pem"
+telegraf__conf__outputs__kafka__ssl__insecure_skip_verify: false
+telegraf__conf__outputs__kafka__data_format: "influx"
