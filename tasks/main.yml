@@ -28,7 +28,21 @@
     owner: "{{ telegraf_user }}"
     backup: yes
   with_items: "{{ telegraf__conf__plugins__extra }}"
-  when: "telegraf__conf__plugins__extra is iterable"
+  when: "item.enabled|default(true) is sameas true"
+  notify:
+    - restart telegraf
+  tags:
+    - telegraf
+    - config
+
+- name: Removes disabled plugins
+  become: true
+  become_user: "{{ telegraf_install_user }}"
+  file:
+    path: "{{ telegraf_config_dir }}/telegraf.d/{{ item.name }}.conf"
+    state: absent
+  with_items: "{{ telegraf__conf__plugins__extra }}"
+  when: "item.enabled|default(true) is sameas false"
   notify:
     - restart telegraf
   tags:

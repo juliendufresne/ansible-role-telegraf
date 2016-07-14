@@ -56,3 +56,36 @@ telegraf__conf__plugins:
   - name: system
 
 telegraf__conf__plugins__extra:
+  - name: system
+  - name: swap
+  - name: cpu
+    parameters:
+      percpu: true
+      totalcpu: true
+      fielddrop:
+        - "time_*"
+  - name: cloudwatch
+    enabled: false
+    parameters:
+      region: 'us-east-1'
+      period: "1m"
+      delay: "1m"
+      interval: "1m"
+      namespace: "AWS/ELB"
+    sections:
+      - name: cloudwatch.metrics
+        enabled: true
+        parameters:
+          names:
+            - 'Latency'
+            - 'RequestCount'
+        sections:
+          - name: cloudwatch.metrics.dimensions
+            enabled: false
+            parameters:
+              name: 'LoadBalancerName'
+              value: 'p-example'
+          - name: cloudwatch.metrics.dimensions
+            parameters:
+              name: 'AvailabilityZone'
+              value: '*'
