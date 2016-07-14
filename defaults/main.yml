@@ -251,3 +251,14 @@ telegraf__conf__inputs__bcache__bcachePath: "/sys/fs/bcache"
 telegraf__conf__inputs__bcache__bcacheDevs:
     - "bcache0"
 
+# [[inputs.cassandra]]
+
+telegraf__conf__inputs__cassandra__enabled: false
+telegraf__conf__inputs__cassandra__context: "/jolokia/read"
+telegraf__conf__inputs__cassandra__servers:
+  - "myuser:mypassword@10.10.10.1:8778"
+  - "10.10.10.2:8778"
+  - ":8778"
+telegraf__conf__inputs__cassandra__metrics:
+  - "/java.lang:type=Memory/HeapMemoryUsage"
+  - "/org.apache.cassandra.metrics:type=Table,keyspace=*,scope=*,name=ReadLatency"

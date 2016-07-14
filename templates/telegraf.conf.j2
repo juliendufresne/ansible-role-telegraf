@@ -315,24 +315,21 @@
 ]
 
 {% endif %}
-# # Read Cassandra metrics through Jolokia
-# [[inputs.cassandra]]
-#   # This is the context root used to compose the jolokia url
-#   context = "/jolokia/read"
-#   ## List of cassandra servers exposing jolokia read service
-#   servers = ["myuser:mypassword@10.10.10.1:8778","10.10.10.2:8778",":8778"]
-#   ## List of metrics collected on above servers
-#   ## Each metric consists of a jmx path.
-#   ## This will collect all heap memory usage metrics from the jvm and
-#   ## ReadLatency metrics for all keyspaces and tables.
-#   ## "type=Table" in the query works with Cassandra3.0. Older versions might
-#   ## need to use "type=ColumnFamily"
-#   metrics  = [
-#     "/java.lang:type=Memory/HeapMemoryUsage",
-#     "/org.apache.cassandra.metrics:type=Table,keyspace=*,scope=*,name=ReadLatency"
-#   ]
+{% if telegraf__conf__inputs__cassandra__enabled %}
+[[inputs.cassandra]]
+  context = "{{ telegraf__conf__inputs__cassandra__context }}"
+  servers = [
+{% for server in telegraf__conf__inputs__cassandra__servers %}
+  "{{ server }}",
+{% endfor %}
+  ]
+  metrics = [
+{% for metric in telegraf__conf__inputs__cassandra__metrics %}
+    "{{ metric }}",
+{% endfor %}
+  ]
 
-
+{% endif %}
 # # Collects performance metrics from the MON and OSD nodes in a Ceph storage cluster.
 # [[inputs.ceph]]
 #   ## All configuration values are optional, defaults are shown below
