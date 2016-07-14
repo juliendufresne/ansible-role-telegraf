@@ -91,3 +91,13 @@ telegraf__conf__outputs__file__files:
     - "stdout"
     - "/tmp/metrics.out"
 telegraf__conf__outputs__file__data_format: "influx"
+
+
+# [[outputs.graphite]]
+
+telegraf__conf__outputs__graphite__enabled: false
+telegraf__conf__outputs__graphite__servers:
+    - "localhost:2003"
+telegraf__conf__outputs__graphite__prefix: ""
+telegraf__conf__outputs__graphite__template: "host.tags.measurement.field"
+telegraf__conf__outputs__graphite__timeout: 2
