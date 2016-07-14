@@ -92,7 +92,6 @@ telegraf__conf__outputs__file__files:
     - "/tmp/metrics.out"
 telegraf__conf__outputs__file__data_format: "influx"
 
-
 # [[outputs.graphite]]
 
 telegraf__conf__outputs__graphite__enabled: false
@@ -101,3 +100,12 @@ telegraf__conf__outputs__graphite__servers:
 telegraf__conf__outputs__graphite__prefix: ""
 telegraf__conf__outputs__graphite__template: "host.tags.measurement.field"
 telegraf__conf__outputs__graphite__timeout: 2
+
+# [[outputs.instrumental]]
+
+telegraf__conf__outputs__instrumental__enabled: false
+telegraf__conf__outputs__instrumental__api_token: "API Token"
+telegraf__conf__outputs__instrumental__prefix: ""
+telegraf__conf__outputs__instrumental__template: "host.tags.measurement.field"
+telegraf__conf__outputs__instrumental__timeout: "2s"
+telegraf__conf__outputs__instrumental__debug: false

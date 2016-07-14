@@ -119,20 +119,15 @@
   timeout  = {{ telegraf__conf__outputs__graphite__timeout }}
 
 {% endif %}
-# # Configuration for sending metrics to an Instrumental project
-# [[outputs.instrumental]]
-#   ## Project API Token (required)
-#   api_token = "API Token" # required
-#   ## Prefix the metrics with a given name
-#   prefix = ""
-#   ## Stats output template (Graphite formatting)
-#   ## see https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md#graphite
-#   template = "host.tags.measurement.field"
-#   ## Timeout in seconds to connect
-#   timeout = "2s"
-#   ## Display Communcation to Instrumental
-#   debug = false
+{% if telegraf__conf__outputs__instrumental__enabled %}
+[[outputs.instrumental]]
+  api_token = "{{ telegraf__conf__outputs__instrumental__api_token }}"
+  prefix    = "{{ telegraf__conf__outputs__instrumental__prefix }}"
+  template  = "{{ telegraf__conf__outputs__instrumental__template }}"
+  timeout   = "{{ telegraf__conf__outputs__instrumental__timeout }}"
+  debug     = {{ telegraf__conf__outputs__instrumental__debug|lower }}
 
+{% endif %}
 
 # # Configuration for the Kafka server to send metrics to
 # [[outputs.kafka]]
