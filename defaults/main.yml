@@ -325,3 +325,12 @@ telegraf__conf__inputs__docker__enabled: false
 telegraf__conf__inputs__docker__endpoint: "unix:///var/run/docker.sock"
 telegraf__conf__inputs__docker__container_name: []
 telegraf__conf__inputs__docker__timepoint: "5s"
+
+# [[inputs.dovecot]]
+
+telegraf__conf__inputs__dovecot__enabled: false
+telegraf__conf__inputs__dovecot__servers:
+  - "localhost:24242"
+telegraf__conf__inputs__dovecot__type: "global"
+telegraf__conf__inputs__dovecot__filters:
+  - ""
