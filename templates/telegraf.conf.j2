@@ -212,12 +212,11 @@
   debug  = {{ telegraf__conf__outputs__opentsdb__debug|lower }}
 
 {% endif %}
-# # Configuration for the Prometheus client to spawn
-# [[outputs.prometheus_client]]
-#   ## Address to listen on
-#   # listen = ":9126"
+{% if telegraf__conf__outputs__prometheus_client__enabled %}
+[[outputs.prometheus_client]]
+  listen = "{{ telegraf__conf__outputs__prometheus_client__listen }}"
 
-
+{% endif %}
 # # Configuration for the Riemann server to send metrics to
 # [[outputs.riemann]]
 #   ## URL of server
