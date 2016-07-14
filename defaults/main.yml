@@ -302,9 +302,19 @@ telegraf__conf__inputs__couchdb__enabled: false
 telegraf__conf__inputs__couchdb__hosts:
   - "http://localhost:8086/_stats"
 
-
 # [[inputs.disque]]
 
 telegraf__conf__inputs__disque__enabled: false
 telegraf__conf__inputs__disque__servers:
   - "localhost"
+
+# [[inputs.dns_query]]
+
+telegraf__conf__inputs__dns_query__enabled: false
+telegraf__conf__inputs__dns_query__servers:
+  - "8.8.8.8"
+telegraf__conf__inputs__dns_query__domains:
+  - "."
+telegraf__conf__inputs__dns_query__record_type: "A"
+telegraf__conf__inputs__dns_query__port: 53
+telegraf__conf__inputs__dns_query__timeout: 2
