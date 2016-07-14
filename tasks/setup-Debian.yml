@@ -1,0 +1,56 @@
+---
+
+- name: Ensure the system can use the HTTPS transport for APT.
+  become: true
+  become_user: "{{ telegraf_install_user }}"
+  stat:
+    path: /usr/lib/apt/methods/https
+  register: apt_https_transport
+  tags:
+    - telegraf
+    - packages
+
+- name: Install APT HTTPS transport.
+  become: true
+  become_user: "{{ telegraf_install_user }}"
+  apt:
+    name: "apt-transport-https"
+    state: present
+  when: not apt_https_transport.stat.exists
+  tags:
+    - telegraf
+    - packages
+
+- name: Download telegraf apt key.
+  become: true
+  become_user: "{{ telegraf_install_user }}"
+  apt_key:
+    url: "https://repos.influxdata.com/influxdb.key"
+    state: present
+  tags:
+    - telegraf
+    - packages
+
+- name: Add telegraf repository.
+  become: true
+  become_user: "{{ telegraf_install_user }}"
+  apt_repository:
+    repo: "deb https://repos.influxdata.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
+    filename: "telegraf"
+    state: present
+  tags:
+    - telegraf
+    - packages
+
+- name: Install telegraf.
+  become: true
+  become_user: "{{ telegraf_install_user }}"
+  apt:
+    name: telegraf
+    state: installed
+    update_cache: yes
+  notify:
+    - restart telegraf
+  tags:
+    - telegraf
+    - packages
