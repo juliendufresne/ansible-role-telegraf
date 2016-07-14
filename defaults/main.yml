@@ -289,3 +289,9 @@ telegraf__conf__inputs__cloudwatch__metrics__names:
 telegraf__conf__inputs__cloudwatch__metrics__dimensions__enabled: true
 telegraf__conf__inputs__cloudwatch__metrics__dimensions__name: "LoadBalancerName"
 telegraf__conf__inputs__cloudwatch__metrics__dimensions__value: "p-example"
+
+# [[inputs.couchbase]]
+
+telegraf__conf__inputs__couchbase__enabled: false
+telegraf__conf__inputs__couchbase__servers:
+  - "http://localhost:8091"
