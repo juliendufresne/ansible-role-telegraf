@@ -296,12 +296,15 @@
 ]
 
 {% endif %}
-# # Read Apache status information (mod_status)
-# [[inputs.apache]]
-#   ## An array of Apache status URI to gather stats.
-#   urls = ["http://localhost/server-status?auto"]
+{% if telegraf__conf__inputs__apache__enabled %}
+[[inputs.apache]]
+  urls = [
+{% for server in telegraf__conf__inputs__apache__urls %}
+    "{{ server }}",
+{% endfor %}
+]
 
-
+{% endif %}
 # # Read metrics of bcache from stats_total and dirty_data
 # [[inputs.bcache]]
 #   ## Bcache sets path

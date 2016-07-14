@@ -237,3 +237,9 @@ telegraf__conf__inputs__system__enabled: true
 telegraf__conf__inputs__aerospike__enabled: false
 telegraf__conf__inputs__aerospike__servers:
     - "localhost:3000"
+
+# [[inputs.apache]]
+
+telegraf__conf__inputs__apache__enabled: false
+telegraf__conf__inputs__apache__urls:
+    - "http://localhost/server-status?auto"
