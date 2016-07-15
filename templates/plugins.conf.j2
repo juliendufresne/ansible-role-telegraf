@@ -3,7 +3,9 @@
 #                            {{ item.type|default('inputs')|upper }} PLUGINS                                   #
 ###############################################################################
 {% macro display_parameter(parameter_name, parameter_value, space) -%}
-{% if parameter_value is sameas true or parameter_value is sameas false %}
+{% if parameter_value is equalto True %}
+{{ space }}  {{ parameter_name }} = {{ parameter_value|lower }}
+{% elif parameter_value is equalto False %}
 {{ space }}  {{ parameter_name }} = {{ parameter_value|lower }}
 {% elif parameter_value is string %}
 {{ space }}  {{ parameter_name }} = "{{ parameter_value }}"
@@ -35,4 +37,6 @@
 {% endif %}
 {% endmacro %}
 
-{{ display_section(item) }}
+{% for element in telegraf__conf__plugins__extra if element.name == item.name %}
+{{ display_section(element) }}
+{% endfor %}

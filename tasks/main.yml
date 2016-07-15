@@ -28,7 +28,7 @@
     owner: "{{ telegraf_user }}"
     backup: yes
   with_items: "{{ telegraf__conf__plugins__extra }}"
-  when: "item.enabled|default(true) is sameas true"
+  when: "telegraf__conf__plugins__extra is iterable and item.enabled|default(true) is sameas true"
   notify:
     - restart telegraf
   tags:

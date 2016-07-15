@@ -1,6 +1,8 @@
 {{ ansible_managed|comment }}
 {% macro display_parameter(parameter_name, parameter_value, space) -%}
-{% if parameter_value is sameas true or parameter_value is sameas false %}
+{% if parameter_value is equalto True %}
+{{ space }}  {{ parameter_name }} = {{ parameter_value|lower }}
+{% elif parameter_value is equalto False %}
 {{ space }}  {{ parameter_name }} = {{ parameter_value|lower }}
 {% elif parameter_value is string %}
 {{ space }}  {{ parameter_name }} = "{{ parameter_value }}"
