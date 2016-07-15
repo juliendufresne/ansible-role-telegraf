@@ -3,7 +3,8 @@ Ansible Role Telegraf
 
 [![Build Status](https://travis-ci.org/juliendufresne/ansible-role-telegraf.svg?branch=master)](https://travis-ci.org/juliendufresne/ansible-role-telegraf)
 
-Fully configurable [InfluxDB](https://influxdata.com/time-series-platform/telegraf/) installation and management for versions 0.13+.  
+Fully configurable [Telegraf](https://influxdata.com/time-series-platform/telegraf/) installation and management for versions 0.13+.
+
 
 Supported platforms
 -------------------
