@@ -1,0 +1,7 @@
+---
+
+- name: Install custom version for Debian base distribution (Debian, Ubuntu)
+  become: true
+  become_user: "{{ telegraf_install_user }}"
+  apt:
+    deb: "https://dl.influxdata.com/telegraf/releases/telegraf_{{ telegraf_install_version }}_amd64.deb"

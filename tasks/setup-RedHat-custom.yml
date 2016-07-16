@@ -1,0 +1,9 @@
+---
+
+- name: Install custom version for RedHat base distribution
+  become: true
+  become_user: "{{ telegraf_install_user }}"
+  yum:
+    name: "https://dl.influxdata.com/telegraf/releases/telegraf-{{ telegraf_install_version }}.x86_64.rpm"
+    state: present
+  when: ansible_os_family == 'RedHat' and ansible_architecture == 'x86_64'

@@ -1,12 +1,13 @@
 ---
 
 telegraf_install_user: root
+telegraf_install_version: packaged
 
 # Write config
-telegraf_group: root
-telegraf_user: root
 telegraf_config_dir: "/etc/telegraf"
 telegraf_config_file: "telegraf.conf"
+telegraf_group: root
+telegraf_user: root
 
 # Below this line, you will find all configurable variable for the config_file
 
