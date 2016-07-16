@@ -5,7 +5,6 @@ Ansible Role Telegraf
 
 Fully configurable [Telegraf](https://influxdata.com/time-series-platform/telegraf/) installation and management for versions 0.13+.
 
-
 Supported platforms
 -------------------
 
@@ -30,8 +29,13 @@ _Table generated with [juliendufresne/test-ansible-roles](https://github.com/jul
 Requirements
 ------------
 
+**Ansible version**  
 Tested with latest version of ansible (2.1.0)  
 Should work for ansible >= 1.9 (usage of `become` and `become_user`)
+
+**Jinja2 version**  
+Works with version [2.8](http://jinja.pocoo.org/docs/dev/changelog/#version-2-8)+  
+Requires equalto filter.
 
 Role Variables
 --------------
