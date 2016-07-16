@@ -5,6 +5,11 @@ Ansible Role Telegraf
 
 Fully configurable [Telegraf](https://influxdata.com/time-series-platform/telegraf/) installation and management for versions 0.13+.
 
+> THE “T” IN THE TICK STACK
+> Telegraf is an open source agent written in Go for collecting metrics and data on the system it's running on or from other services. Telegraf writes data it collects to InfluxDB in the correct format.
+> 
+> — _From https://influxdata.com/time-series-platform/telegraf/_
+
 Supported platforms
 -------------------
 
