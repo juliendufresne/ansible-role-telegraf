@@ -32,13 +32,15 @@ _Table generated with [juliendufresne/test-ansible-roles](https://github.com/jul
 | Ubuntu 15.10 (wily)    | 2016-07-14 18:42:02 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
 | Ubuntu 16.04 (xenial)  | 2016-07-14 19:54:28 | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg) | ![OK](https://img.shields.io/badge/status-pass-brightgreen.svg)  |
 
+> * **From scratch** represents the results when you run your ansible playbook on a clean distribution
+> * **Idempotency** represents the second run of your ansible playbook. It should not contains any changes tasks
+
 
 Requirements
 ------------
 
 **Ansible version**  
-Tested with latest version of ansible (2.1.0)  
-Should work for ansible >= 1.9 (usage of `become` and `become_user`)
+This role requires ansible 2.1.0+ (apt_repository use filename)  
 
 **Jinja2 version**  
 Works with version [2.8](http://jinja.pocoo.org/docs/dev/changelog/#version-2-8)+  
