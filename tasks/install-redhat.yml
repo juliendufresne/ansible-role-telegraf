@@ -1,0 +1,7 @@
+---
+
+- include: install-redhat-custom.yml
+  when: telegraf_install_version and telegraf_install_version != 'packaged'
+
+- include: install-redhat-packaged.yml
+  when: not telegraf_install_version or telegraf_install_version == 'packaged'

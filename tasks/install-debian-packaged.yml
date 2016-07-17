@@ -1,56 +1,42 @@
 ---
 
-- name: Ensure the system can use the HTTPS transport for APT.
+- name: Ensure system can use HTTPS transport for APT [Debian/Ubuntu]
   become: true
   become_user: "{{ telegraf_install_user }}"
   stat:
     path: /usr/lib/apt/methods/https
   register: apt_https_transport
-  tags:
-    - telegraf
-    - packages
 
-- name: Install APT HTTPS transport.
+- name: Install APT HTTPS transport [Debian/Ubuntu]
   become: true
   become_user: "{{ telegraf_install_user }}"
   apt:
     name: "apt-transport-https"
     state: present
   when: not apt_https_transport.stat.exists
-  tags:
-    - telegraf
-    - packages
 
-- name: Download telegraf apt key.
+- name: Import InfluxData GPG signing key [Debian/Ubuntu]
   become: true
   become_user: "{{ telegraf_install_user }}"
   apt_key:
     url: "https://repos.influxdata.com/influxdb.key"
     state: present
-  tags:
-    - telegraf
-    - packages
 
-- name: Add telegraf repository.
+- name: Add InfluxData repository [Debian/Ubuntu]
   become: true
   become_user: "{{ telegraf_install_user }}"
   apt_repository:
     repo: "deb https://repos.influxdata.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
     filename: "telegraf"
     state: present
-  tags:
-    - telegraf
-    - packages
 
-- name: Install telegraf.
+- name: Install Telegraf package [Debian/Ubuntu]
   become: true
   become_user: "{{ telegraf_install_user }}"
   apt:
     name: telegraf
     state: installed
     update_cache: yes
+    cache_valid_time: 3600
   notify:
     - restart telegraf
-  tags:
-    - telegraf
-    - packages

@@ -1,7 +1,9 @@
 ---
 
-- name: Setup
-  include: setup.yml
+- include: install.yml
+  tags:
+    - telegraf
+    - packages
 
 - name: Write default config
   become: true

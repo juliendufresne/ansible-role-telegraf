@@ -1,31 +1,25 @@
 ---
 
-- name: Install libselinux-python.
-  become: true
-  become_user: "{{ telegraf_install_user }}"
-  yum:
-    name: libselinux-python
-    state: installed
-  tags:
-    - telegraf
-    - packages
+#- name: Install any necessary dependencies [RHEL/CentOS]
+#  become: true
+#  become_user: "{{ telegraf_install_user }}"
+#  yum:
+#    name: libselinux-python
+#    state: installed
 
-- name: Add telegraf repository.
+- name: Add InfluxData repository [RHEL/CentOS]
   become: true
   become_user: "{{ telegraf_install_user }}"
   yum_repository:
+    enabled: yes
     state: present
     description: telegraf Repository - RHEL $releasever
     name: telegraf
     baseurl: https://repos.influxdata.com/rhel/$releasever/$basearch/stable
-    enabled: yes
     gpgcheck: yes
     gpgkey: https://repos.influxdata.com/influxdb.key
-  tags:
-    - telegraf
-    - packages
 
-- name: Install telegraf.
+- name: Install telegraf package [RHEL/CentOS]
   become: true
   become_user: "{{ telegraf_install_user }}"
   yum:
@@ -33,6 +27,3 @@
     state: installed
   notify:
     - restart telegraf
-  tags:
-    - telegraf
-    - packages

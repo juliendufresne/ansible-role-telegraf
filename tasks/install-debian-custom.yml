@@ -1,6 +1,6 @@
 ---
 
-- name: Install custom version for Debian base distribution (Debian, Ubuntu)
+- name: Install Telegraf from URL [Debian/Ubuntu]
   become: true
   become_user: "{{ telegraf_install_user }}"
   apt:

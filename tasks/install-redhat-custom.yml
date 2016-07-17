@@ -1,6 +1,6 @@
 ---
 
-- name: Install custom version for RedHat base distribution
+- name: Install Telegraf from URL [RHEL/CentOS]
   become: true
   become_user: "{{ telegraf_install_user }}"
   yum:
