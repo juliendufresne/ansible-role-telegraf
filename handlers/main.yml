@@ -1,6 +1,6 @@
 ---
 
-- name: restart telegraf
+- name: Restart Telegraf service
   become: true
   become_user: "{{ telegraf_install_user }}"
   service:

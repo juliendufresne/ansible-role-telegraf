@@ -5,6 +5,7 @@ telegraf_install_version: packaged
 
 # Write config
 telegraf_config_dir: "/etc/telegraf"
+telegraf_plugin_dir: "{{ telegraf_config_dir }}/telegraf.d"
 telegraf_config_file: "telegraf.conf"
 telegraf_group: root
 telegraf_user: root

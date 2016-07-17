@@ -5,51 +5,10 @@
     - telegraf
     - packages
 
-- name: Write default config
-  become: true
-  become_user: "{{ telegraf_install_user }}"
-  template:
-    src: telegraf.conf.j2
-    dest: "{{ telegraf_config_dir }}/{{ telegraf_config_file }}"
-    group: "{{ telegraf_group }}"
-    owner: "{{ telegraf_user }}"
-    backup: yes
-  notify:
-    - restart telegraf
+- include: configure.yml
   tags:
     - telegraf
-    - config
-
-- name: Write extra config
-  become: true
-  become_user: "{{ telegraf_install_user }}"
-  template:
-    src: plugins.conf.j2
-    dest: "{{ telegraf_config_dir }}/telegraf.d/{{ item.name }}.conf"
-    group: "{{ telegraf_group }}"
-    owner: "{{ telegraf_user }}"
-    backup: yes
-  with_items: "{{ telegraf__conf__plugins__extra }}"
-  when: "telegraf__conf__plugins__extra is iterable and item.enabled|default(true) is sameas true"
-  notify:
-    - restart telegraf
-  tags:
-    - telegraf
-    - config
-
-- name: Removes disabled plugins
-  become: true
-  become_user: "{{ telegraf_install_user }}"
-  file:
-    path: "{{ telegraf_config_dir }}/telegraf.d/{{ item.name }}.conf"
-    state: absent
-  with_items: "{{ telegraf__conf__plugins__extra }}"
-  when: "item.enabled|default(true) is sameas false"
-  notify:
-    - restart telegraf
-  tags:
-    - telegraf
-    - config
+    - configuration
 
 - name: start service
   become: true
@@ -60,3 +19,4 @@
     state: started
   tags:
     - telegraf
+    - service
