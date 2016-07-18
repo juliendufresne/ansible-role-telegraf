@@ -1,0 +1,85 @@
+{% macro display_parameter_list(parameters, space) -%}
+{% for parameter_name, parameter_value in parameters.iteritems() -%}
+{{ display_parameter(parameter_name, parameter_value, space) }}
+{%- endfor %}
+{% endmacro %}
+
+{% macro display_parameter(parameter_name, parameter_value, space) -%}
+{% if parameter_value is equalto True %}
+{{ space }}  {{ parameter_name }} = {{ parameter_value|lower }}
+{% elif parameter_value is equalto False %}
+{{ space }}  {{ parameter_name }} = {{ parameter_value|lower }}
+{% elif parameter_value is string %}
+{{ space }}  {{ parameter_name }} = "{{ parameter_value }}"
+{% elif parameter_value is number %}
+{{ space }}  {{ parameter_name }} = {{ parameter_value }}
+{% else %}
+{{ space }}  {{ parameter_name }} = [
+{% for val in parameter_value %}
+{{ space }}    {% if val is string %}"{{ val }}"{% else %}{{ val }}{% endif %},
+{% endfor %}
+{{ space }}  ]
+{% endif %}
+{%- endmacro %}
+
+{% macro display_plugin_block_type(conf, plugin_name='', plugin_type='') %}
+{%- set exists = [] -%}
+{%- for plugin in conf if plugin.enabled|default(true) and (plugin_name == '' or plugin.name == plugin_name) and (plugin_type == '' or plugin.type|default('inputs') == plugin_type) recursive -%}
+{%- if exists.append(1) -%}
+{%- endif -%}
+{% endfor %}
+{% if exists -%}
+{% if plugin_type|default('inputs') == "outputs" %}
+###############################################################################
+#                            OUTPUTS PLUGINS                                  #
+###############################################################################
+{% else %}
+###############################################################################
+#                            INPUTS PLUGINS                                   #
+###############################################################################
+{% endif %}
+{%- endif %}
+{% endmacro %}
+
+{% macro display_section(section, parent_section_name, level) -%}
+{% set space = ""|indent(level * 2, true) %}
+{% set current_section_name = parent_section_name ~ '.' ~ section.name %}
+{{ space }}[[{{ current_section_name }}]]
+{% if section.parameters is defined and section.parameters is mapping -%}
+{{ display_parameter_list(section.parameters|default(false), space) }}
+{%- endif %}
+{% if section.sections is defined and section.sections is iterable -%}
+{{ display_section_list(section.sections, current_section_name, level + 1) }}
+{%- endif %}
+{%- endmacro %}
+
+{% macro display_section_list(sections, parent_section_name, level) -%}
+{% for current_section in sections if current_section.enabled|default(true) -%}
+{{ display_section(current_section, parent_section_name, level) }}
+{%- endfor %}
+{%- endmacro %}
+
+{% macro display_custom_section(plugin, section_name, parent_section_name, level) -%}
+{%- set space = ""|indent(level * 2, true) -%}
+{{ space }}[{{ parent_section_name ~ '.' ~ section_name }}]
+{{ display_parameter_list(plugin[section_name], space) }}
+{%- endmacro %}
+
+{% macro plugins(conf, plugin_name='', plugin_type='', level=0) %}
+{{ display_plugin_block_type(conf, plugin_name, plugin_type) }}
+{% for plugin in conf if plugin.enabled|default(true) and (plugin_name == '' or plugin.name == plugin_name) and (plugin_type == '' or plugin.type|default('inputs') == plugin_type) recursive -%}
+{% set space = ""|indent(level * 2, true) %}
+{% set current_plugin_type = plugin.type|default('inputs') %}
+{{ space }}[[{{ current_plugin_type }}.{{ plugin.name }}]]
+{% if plugin.parameters is defined and plugin.parameters is mapping -%}
+{{ display_parameter_list(plugin.parameters, space) }}
+{%- endif %}
+{% if plugin.sections is defined and plugin.sections is iterable -%}
+{{ display_section_list(plugin.sections|default(false), current_plugin_type ~ '.' ~ plugin.name, level + 1) }}
+{%- endif %}
+{% for custom_section in ['tagpass', 'tagdrop', 'tags'] if plugin[custom_section] is defined and plugin[custom_section] is mapping -%}
+{{ display_custom_section(plugin, custom_section, current_plugin_type ~ '.' ~ plugin.name, level + 1) }}
+{%- endfor %}
+
+{% endfor %}
+{% endmacro %}

@@ -1,58 +1,5 @@
+{%- import "tools.j2" as tools with context -%}
 {{ ansible_managed|comment }}
-{% macro display_parameter(parameter_name, parameter_value, space) -%}
-{% if parameter_value is equalto True %}
-{{ space }}  {{ parameter_name }} = {{ parameter_value|lower }}
-{% elif parameter_value is equalto False %}
-{{ space }}  {{ parameter_name }} = {{ parameter_value|lower }}
-{% elif parameter_value is string %}
-{{ space }}  {{ parameter_name }} = "{{ parameter_value }}"
-{% elif parameter_value is number %}
-{{ space }}  {{ parameter_name }} = {{ parameter_value }}
-{% else %}
-{{ space }}  {{ parameter_name }} = [
-{% for val in parameter_value %}
-{{ space }}    {% if val is string %}"{{ val }}"{% else %}{{ val }}{% endif %},
-{% endfor %}
-{{ space }}  ]
-{% endif %}
-{%- endmacro %}
-
-{% macro plugins(conf, plugin_type) %}
-{%- set exists = [] -%}
-{% for plugin in conf if plugin.enabled|default(true) and plugin.type|default('inputs') == plugin_type -%}
-{%- if exists.append(1) -%}
-{%- endif -%}
-{% endfor %}
-{% if exists %}
-{% if plugin_type|default('inputs') == "outputs" %}
-###############################################################################
-#                            OUTPUTS PLUGINS                                  #
-###############################################################################
-{% else %}
-###############################################################################
-#                            INPUTS PLUGINS                                   #
-###############################################################################
-{% endif %}
-{% endif %}
-{% for plugin in conf if plugin.enabled|default(true) recursive %}
-{% if loop.depth0 > 0 or plugin.type|default('inputs') == plugin_type %}
-{% set space = ""|indent(loop.depth0 * 2, true) %}
-{{ space }}[[{{ plugin_type }}.{{ plugin.name }}]]
-{% if plugin.parameters is defined and plugin.parameters is iterable %}{% for parameter_name, parameter_value in plugin.parameters.iteritems() -%}
-{{ display_parameter(parameter_name, parameter_value, space) }}
-{%- endfor %}{% endif %}
-{% if plugin.sections is defined %}{{ loop(plugin.sections) }}{% endif %}
-{% for custom_section in ['tagpass', 'tagdrop', 'tag' ] if plugin[custom_section] is defined and plugin[custom_section] is iterable %}
-{% set space = ""|indent(2, true) %}
-{{ space }}[{{ plugin_type }}.{{ plugin.name }}.{{ custom_section }}]
-{% for parameter_name, parameter_value in plugin[custom_section].iteritems() -%}
-{{ display_parameter(parameter_name, parameter_value, space) }}
-{%- endfor %}
-{% endfor %}
-{% endif %}
-{% endfor %}
-{%- endmacro %}
-
 [global_tags]
 {% if telegraf__conf__global_tags %}
 {% for key, value in telegraf__conf__global_tags.iteritems() %}
@@ -60,7 +7,6 @@
 {% endfor %}
 {% endif %}
 
-# Configuration for telegraf agent
 [agent]
   interval            = "{{ telegraf__conf__agent__interval }}"
   round_interval      = {{ telegraf__conf__agent__round_interval|lower }}
@@ -75,6 +21,6 @@
   omit_hostname       = {{ telegraf__conf__agent__omit_hostname|lower }}
 
 {% if telegraf__conf__plugins is iterable %}
-{{ plugins(telegraf__conf__plugins, 'outputs') }}
-{{ plugins(telegraf__conf__plugins, 'inputs') }}
+{{ tools.plugins(telegraf__conf__plugins, '', 'outputs') }}
+{{ tools.plugins(telegraf__conf__plugins, '', 'inputs') }}
 {% endif %}
