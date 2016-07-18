@@ -18,30 +18,37 @@
 {%- endmacro %}
 
 {% macro plugins(conf, plugin_type) %}
-{% set exists = [] %}
-{% for plugin in conf if plugin.enabled|default(true) and plugin.type|default('inputs') == plugin_type %}
-{% if exists.append(1) %}
-{% endif %}
+{%- set exists = [] -%}
+{% for plugin in conf if plugin.enabled|default(true) and plugin.type|default('inputs') == plugin_type -%}
+{%- if exists.append(1) -%}
+{%- endif -%}
 {% endfor %}
 {% if exists %}
+{% if plugin_type|default('inputs') == "outputs" %}
 ###############################################################################
-#                            {{ plugin_type|upper }} PLUGINS                                   #
+#                            OUTPUTS PLUGINS                                  #
 ###############################################################################
+{% else %}
+###############################################################################
+#                            INPUTS PLUGINS                                   #
+###############################################################################
+{% endif %}
 {% endif %}
 {% for plugin in conf if plugin.enabled|default(true) recursive %}
 {% if loop.depth0 > 0 or plugin.type|default('inputs') == plugin_type %}
 {% set space = ""|indent(loop.depth0 * 2, true) %}
 {{ space }}[[{{ plugin_type }}.{{ plugin.name }}]]
-{% if plugin.parameters is defined and plugin.parameters is iterable %}
-{% for parameter_name, parameter_value in plugin.parameters.iteritems() %}
+{% if plugin.parameters is defined and plugin.parameters is iterable %}{% for parameter_name, parameter_value in plugin.parameters.iteritems() -%}
 {{ display_parameter(parameter_name, parameter_value, space) }}
-
+{%- endfor %}{% endif %}
+{% if plugin.sections is defined %}{{ loop(plugin.sections) }}{% endif %}
+{% for custom_section in ['tagpass', 'tagdrop', 'tag' ] if plugin[custom_section] is defined and plugin[custom_section] is iterable %}
+{% set space = ""|indent(2, true) %}
+{{ space }}[{{ plugin_type }}.{{ plugin.name }}.{{ custom_section }}]
+{% for parameter_name, parameter_value in plugin[custom_section].iteritems() -%}
+{{ display_parameter(parameter_name, parameter_value, space) }}
 {%- endfor %}
-{% endif %}
-{% if plugin.sections is defined %}
-{{ loop(plugin.sections) }}
-{% endif %}
-
+{% endfor %}
 {% endif %}
 {% endfor %}
 {%- endmacro %}

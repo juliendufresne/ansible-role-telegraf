@@ -1,7 +1,4 @@
 {{ ansible_managed|comment }}
-###############################################################################
-#                            {{ item.type|default('inputs')|upper }} PLUGINS                                   #
-###############################################################################
 {% macro display_parameter(parameter_name, parameter_value, space) -%}
 {% if parameter_value is equalto True %}
 {{ space }}  {{ parameter_name }} = {{ parameter_value|lower }}
@@ -20,23 +17,28 @@
 {% endif %}
 {%- endmacro %}
 
-{% macro display_section(item, space_indent=0) %}
-{% set space = ""|indent(space_indent * 2, true) %}
-{% if item.enabled|default(true) %}
-{{ space }}[[{{ item.type|default('inputs') }}.{{ item.name }}]]
-{% if item.parameters is defined and item.parameters is mapping %}
-{% for parameter_name, parameter_value in item.parameters.iteritems() %}
+{% macro plugins(conf, plugin_name) %}
+{% for plugin in conf if plugin.name == plugin_name and plugin.enabled|default(true) recursive %}
+{% set space = ""|indent(loop.depth0 * 2, true) %}
+{{ space }}[[{{ plugin.type|default('inputs') }}.{{ plugin.name }}]]
+{% if plugin.parameters is defined and plugin.parameters is iterable %}
+{% for parameter_name, parameter_value in plugin.parameters.iteritems() %}
 {{ display_parameter(parameter_name, parameter_value, space) }}
 {%- endfor %}
 {% endif %}
-{% if item.sections is defined %}
-{% for section in item.sections %}
-{{ display_section(section, space_indent + 1) }}
+{% if plugin.sections is defined %}
+{{ loop(plugin.sections) }}
+{% endif %}
+{% for custom_section in ['tagpass', 'tagdrop', 'tags' ] if plugin[custom_section] is defined and plugin[custom_section] is iterable %}
+{% set space = ""|indent(loop.depth * 2, true) %}
+{{ space }}[{{ plugin.type|default('inputs') }}.{{ plugin.name }}.{{ custom_section }}]
+{% for parameter_name, parameter_value in plugin[custom_section].iteritems() -%}
+{{ display_parameter(parameter_name, parameter_value, space) }}
+{%- endfor %}
 {% endfor %}
-{% endif %}
-{% endif %}
-{% endmacro %}
+{% endfor %}
+{%- endmacro %}
 
-{% for element in telegraf__conf__plugins__extra if element.name == item.name %}
-{{ display_section(element) }}
-{% endfor %}
+{% if telegraf__conf__plugins is iterable %}
+{{ plugins(telegraf__conf__plugins__extra, item.name) }}
+{% endif %}
