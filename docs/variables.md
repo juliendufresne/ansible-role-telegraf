@@ -74,6 +74,9 @@ Each item may contains:
 | enabled    | boolean    | true    | Is the plugin enabled or not ? Allows you to keep configuration and be able to disable a plugin anyway           |
 | parameters | dictionary | -       | Defines the list of parameters required                                                                          |
 | sections   | array      | -       | If the plugin requires some subsection, you can define them in here. A section is basically the same as a plugin |
+| tagpass    | dictionary | -       | Tag names and arrays of strings that are used to filter measurements by the current input. Each string in the array is tested as a glob match against the tag name, and if it matches the measurement is emitted. |
+| tagdrop    | dictionary | -       |  The inverse of tagpass. If a tag matches, the measurement is not emitted. This is tested on measurements that have passed the tagpass test. |
+| tags       | dictionary | -       | Adds some tags specific for this inputs |
 
 ### Example
 
