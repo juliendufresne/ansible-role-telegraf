@@ -9,6 +9,8 @@ telegraf_plugin_dir: "{{ telegraf_config_dir }}/telegraf.d"
 telegraf_config_file: "telegraf.conf"
 telegraf_group: root
 telegraf_user: root
+# whether you want to keep some config files backup or not
+telegraf_config_backup: no
 
 # Below this line, you will find all configurable variable for the config_file
 

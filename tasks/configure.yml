@@ -8,7 +8,7 @@
     dest: "{{ telegraf_config_dir }}/{{ telegraf_config_file }}"
     group: "{{ telegraf_group }}"
     owner: "{{ telegraf_user }}"
-    backup: yes
+    backup: "{{ telegraf_config_backup }}"
   notify:
     - Restart Telegraf service
 
@@ -20,7 +20,7 @@
     dest: "{{ telegraf_plugin_dir }}/{{ item.name }}.conf"
     group: "{{ telegraf_group }}"
     owner: "{{ telegraf_user }}"
-    backup: yes
+    backup: "{{ telegraf_config_backup }}"
   with_items: "{{ telegraf__conf__plugins__extra }}"
   when: "telegraf__conf__plugins__extra is iterable and item.enabled|default(true) is sameas true"
   notify:
